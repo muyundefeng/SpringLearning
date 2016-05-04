@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop
+		http://www.springframework.org/schema/aop/spring-aop-4.0.xsd">
+	<bean id="person" class="come.log.muyundefeng.csdn.Audience"/>
+	<bean id="show" class="come.log.muyundefeng.csdn.Actor"/>
+	<aop:config proxy-target-class="true">
+		<aop:aspect ref="person">
+			<aop:before method="takeSeats" pointcut="execution(* come.log.muyundefeng.csdn.Actor.perform(..))"/>
+			<aop:before method="turnOffCellPhone" pointcut="execution(* come.log.muyundefeng.csdn.Actor.perform(..))"/>
+			<aop:after-returning method="appluad" pointcut="execution(* come.log.muyundefeng.csdn.Actor.perform(..))"/>
+			<aop:after-throwing method="demandRefund" pointcut="execution(* come.log.muyundefeng.csdn.Actor.perform(..))"/>
+		</aop:aspect>
+	
+	</aop:config>
+
+</beans> 
