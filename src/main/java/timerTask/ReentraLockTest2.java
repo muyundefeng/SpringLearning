@@ -57,10 +57,16 @@ public class ReentraLockTest2 {
 		
 	}
 	public static void main(String[] args) {
-		ExecutorService executorService = Executors.newFixedThreadPool(10);
+	//	ExecutorService executorService = Executors.newFixedThreadPool(10);
 		for(int i = 0;i<3;i++){
-			executorService.execute(new tasks());
+			new Thread(new tasks()).start();
+//			try {
+//				Thread.sleep(300);
+//			} catch (InterruptedException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
 		}
-		executorService.shutdown();
+		//executorService.shutdown();
 	}
 }
