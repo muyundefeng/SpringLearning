@@ -30,9 +30,15 @@ dependencies {
     // testCompile dependency to testCompile 'org.testng:testng:6.8.1' and add
     // 'test.useTestNG()' to your build script.
     // https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient
-	compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.4.1'
+    // https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient
+	compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.1'
+    // https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
+compile group: 'commons-lang', name: 'commons-lang', version: '2.6'
+    
+	//compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.4.1'
+	compile group: 'us.codecraft', name: 'xsoup', version: '0.3.1'
 	// https://mvnrepository.com/artifact/org.jsoup/jsoup
-	compile group: 'org.jsoup', name: 'jsoup', version: '1.5.2'
+	compile group: 'org.apache.stanbol', name: 'org.apache.stanbol.enhancer.engines.htmlextractor', version: '0.12.0'
     testCompile 'junit:junit:4.12'
 }
 
