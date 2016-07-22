@@ -10,7 +10,7 @@ import com.github.muyundfeng.getProcess.Property;
 
 public class saveToFile {
 
-	public static void saveAsFile(String str) throws IOException{
+	public static void saveAsFile(String str){
 		String fileName = Property.getFilePath();
 		File file = new File(fileName);
 		if(!file.exists()){
@@ -21,9 +21,20 @@ public class saveToFile {
 				e.printStackTrace();
 			}
 		}
-		FileWriter writer = new FileWriter(file);
+		FileWriter writer = null;
+		try {
+			writer = new FileWriter(file);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		BufferedWriter wr = new BufferedWriter(writer);
-		wr.write(str);
+		try {
+			wr.write(str);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 }

@@ -1,4 +1,6 @@
 package com.github.muyundefeng.utils;
+import java.util.List;
+
 //存放网页的基本信息
 import com.github.muyundfeng.parseHtml.Html;
 
@@ -10,10 +12,44 @@ public class Page {
 	private String charSet;
 	private Html html;
 	private String method;
+	private List<Request> requests;
+	private List<String> list;
+	private Request request;
+	private String addUrl;
+	private List<String> addUrls;
 	
 	private static final String GET = "GET";
 	private static final String POST = "POST";
 	private static final String defaultMethod = GET;
+	
+	public void addTargetRequests(List<Request> requests){
+		this.requests = requests;
+	}
+	public List<Request> getRequests(){
+		return requests;
+	}
+	
+	public void addTargetRequest(Request request){
+		this.request = request;
+	}
+	public Request getRequest(){
+		return request;
+	}
+	
+	public void addTargetStrings(List<String> addUrls){
+		this.addUrls = addUrls;
+	}
+	public List<String> getaddUrls(){
+		return addUrls;
+	}
+	
+	public void addTargetString(String url){
+		this.addUrl = url;
+	}
+	public String getaddUrl(){
+		return addUrl;
+	}
+	
 	
 	public Html getHtml() {
 		return new Html(source,charSet,url);

@@ -38,12 +38,17 @@ import com.github.muyundefeng.utils.Page;
 import com.github.muyundefeng.utils.Request;
 import com.github.muyundfeng.getProcess.Property;
 
-public class myHttpClientDownloader {
-    private static  CloseableHttpClient httpClient;
-    public static String CHARSET = "UTF-8";
-    private static final String POST = "POST";
-    private static final String GET = "GET";
+public class myHttpClientDownloader implements Downloader {
+    private   CloseableHttpClient httpClient;
+    public  String CHARSET = "UTF-8";
+    private  final String POST = "POST";
+    private  final String GET = "GET";
 
+    public myHttpClientDownloader(String charset) {
+		// TODO Auto-generated constructor stub
+    	httpClient = HttpClients.createDefault();
+    	
+    }
     /**
      * HTTP Get 获取内容
      * @param url  请求的url地址 ?之前的地址
@@ -51,7 +56,11 @@ public class myHttpClientDownloader {
      * @param charset	编码格式
      * @return	页面内容
      */
-    public static String requestUrl(Request request,Map<String,String> params){
+    public  String requestUrl(Request request){
+    	return requestUrl(request,null);
+    }
+    
+    public  String requestUrl(Request request,Map<String,String> params){
     	RequestBuilder requestBuilder = null;
     	if(request.getMethod().equals(GET)){
     		requestBuilder = RequestBuilder.get(request.getUrl());
@@ -99,7 +108,7 @@ public class myHttpClientDownloader {
     	}
     	HttpUriRequest httpUriRequest = requestBuilder.build();
 		try{
-			httpClient = HttpClients.createDefault();
+			
 	    	CloseableHttpResponse response = httpClient.execute(httpUriRequest);
 			int statusCode = response.getStatusLine().getStatusCode();
 			if (statusCode != 200) {
@@ -122,7 +131,7 @@ public class myHttpClientDownloader {
 		return null;
     }
     
-   public static String getCharset(HttpResponse httpResponse){
+   public  String getCharset(HttpResponse httpResponse){
 	   String html = httpResponse.getEntity().getContentType().getValue();
 	   Pattern pattern = Pattern.compile("charset\\s*=\\s*['\"]*([^\\s;'\"]*)");
 	   Matcher matcher = pattern.matcher(html);
@@ -134,16 +143,16 @@ public class myHttpClientDownloader {
        }
        return null;
    }
-   public static Page downloadPage(Request request,Map<String, String> header){
+   public  Page downloadPage(Request request,Map<String, String> header){
 	   String content = requestUrl(request, header);
 	   Page page = new Page(content, request.getUrl(),CHARSET);
 	   return page;
    }
    
-    public static void main(String []args){
-    	Request request = new Request("http://www.baidu.com");
-    	Page page = downloadPage(request, null);
-    	System.out.println(page.getSource());
-    }
-    
+//    public static void main(String []args){
+//    	Request request = new Request("http://www.baidu.com");
+//    	Page page = downloadPage(request, null);
+//    	System.out.println(page.getSource());
+//    }
+//    
 }

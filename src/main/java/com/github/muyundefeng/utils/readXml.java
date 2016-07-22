@@ -11,27 +11,46 @@ import javax.xml.xpath.XPathFactory;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+
+import com.github.muyundefeng.pageProcess.PageProcessor;
 
 
 public class readXml {
-	private static  String siteId;
-	private static String homePage;
+	private  String siteId;
+	private  String homePage;
+	private  String charSet;
+	private  XPath xPath;
+	private  Document document;
+	private PageProcessor pageProcessor;
 	
-	private static void setId(String id){
+	
+	public  void setId(String id){
 		siteId = id;
 	}
-	
-	private static String getHomePage(){
-		try {
+	public readXml(){
+		try{
 			DocumentBuilder documentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
 			InputStream inputStream = readXml.class.getResourceAsStream("/site.xml");
-			Document document = documentBuilder.parse(inputStream);
+			document = documentBuilder.parse(inputStream);
 			XPathFactory xPathFactory = XPathFactory.newInstance();
-			XPath xPath = xPathFactory.newXPath();
+			xPath = xPathFactory.newXPath();
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+	
+	public  String getHomePage(){
+		try {
+			
 			XPathExpression expression = xPath.compile("//site[@id='"+siteId+"']");
 			Node node = (Node) expression.evaluate(document, XPathConstants.NODE);
-			if(node != null){
-				homePage = node.getTextContent().trim();
+			//System.out.println(nodes.getLength());
+			NodeList childNodeList = node.getChildNodes();
+			//System.out.println(childNodeList.getLength());
+			if(childNodeList != null){
+				homePage = childNodeList.item(1).getTextContent().trim();
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -39,8 +58,59 @@ public class readXml {
 		}
 		return homePage;
 	}
-	public static void main(String[] args) {
-		setId("1");
-		System.out.println(getHomePage());
+	public  String getCharset(){
+		try {
+			
+			XPathExpression expression = xPath.compile("//site[@id='"+siteId+"']");
+			Node node = (Node) expression.evaluate(document, XPathConstants.NODE);
+			//System.out.println(nodes.getLength());
+			NodeList childNodeList = node.getChildNodes();
+			//System.out.println(childNodeList.getLength());
+			if(childNodeList != null){
+				charSet = childNodeList.item(3).getTextContent().trim();
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return charSet;
 	}
+	
+	public  String getPapgeProcessor(){
+		try {
+			
+			XPathExpression expression = xPath.compile("//site[@id='"+siteId+"']");
+			Node node = (Node) expression.evaluate(document, XPathConstants.NODE);
+			//System.out.println(nodes.getLength());
+			NodeList childNodeList = node.getChildNodes();
+			//System.out.println(childNodeList.getLength());
+			if(childNodeList != null){
+				charSet = childNodeList.item(5).getTextContent().trim();
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return charSet;
+	}
+	
+	public PageProcessor getProcessor(){
+		String processor = getPapgeProcessor();
+		Class c;
+		PageProcessor o = null;
+		try{
+			c = Class.forName(processor);
+			o = (PageProcessor) (c.getClassLoader().loadClass(processor)).newInstance();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return o;
+	}
+	
+	public static void main(String[] args) {
+		readXml rXml = new readXml();
+		rXml.setId("1");
+		System.out.println(rXml.getPapgeProcessor());
+	}
+
 }

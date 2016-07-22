@@ -23,7 +23,7 @@ import com.github.muyundfeng.getProcess.Property;
 
 import sun.net.www.protocol.http.HttpURLConnection;
 
-public class HttpDownloader {
+public class HttpDownloader implements Downloader{
 	
 	private static BlockingQueue<Request> urlqueuque = new LinkedBlockingQueue<Request>();
 	private static String baseUrl = "http://www.pku.edu.cn/";
@@ -159,5 +159,11 @@ public class HttpDownloader {
 		}
 		//System.out.println(absouluteUrl);
 		return absouluteUrl;
+	}
+
+	@Override
+	public String requestUrl(Request request) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
