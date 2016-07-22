@@ -5,6 +5,9 @@ import java.util.List;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
+import com.github.muyundefeng.downloader.myHttpClientDownloader;
+import com.github.muyundefeng.utils.Request;
+
 import us.codecraft.xsoup.Xsoup;
 
 public class Html {
@@ -78,7 +81,8 @@ public class Html {
 		
 	}
 	
-	public String xpath(){
+	public String xpath(String str){
+		xpathExpr = str;
 		Document document = getDoc();
 		if (document == null)
 		{
@@ -105,6 +109,12 @@ public class Html {
 	
 	public static Html createHtml(String txt){
 		return new Html(txt);
+	}
+	public static void main(String[] args) {
+		String html = new myHttpClientDownloader(null).requestUrl(new Request("http://news.sina.com.cn/china/"));
+		Html html2 = new Html(html);
+		//System.out.println(html);
+		System.out.println(html2.xpath("//span[@class='time-source']/text()").toString());
 	}
 	
 }

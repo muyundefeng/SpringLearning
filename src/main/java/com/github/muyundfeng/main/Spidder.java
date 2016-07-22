@@ -8,6 +8,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import org.junit.validator.PublicClassValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -41,7 +42,7 @@ public class Spidder extends Thread {
 	private BlockingQueue<Request> queue = new LinkedBlockingQueue<Request>();
 	private List<News> list = new ArrayList<News>();
 	private PageProcessor processor;
-	private AtomicInteger count;
+	private AtomicInteger count = new AtomicInteger();
     private Logger logger = LoggerFactory.getLogger(getClass());
 
 	
@@ -53,7 +54,7 @@ public class Spidder extends Thread {
 		this.success = false;
 	}
 	
-	public void initCAomponent(){
+	public void initComponent(){
 		initSetting.setId(siteId);
 		String homepage = initSetting.getHomePage();
 		request = new Request(homepage);
@@ -88,6 +89,7 @@ public class Spidder extends Thread {
 	//启动爬虫
 	public void run(){
 		rmDumplicate(request);
+		System.out.println("here");
 		while(true){
 			Runnable runnable = new Runnable() {
 				
@@ -99,8 +101,10 @@ public class Spidder extends Thread {
 							if(!queue.isEmpty())
 							{
 								Request request = queue.take();
+								System.out.println("access url:"+request.getUrl());
 								logger.info("process url:"+request.getUrl());
 								String responesHtml = downloader.requestUrl(request);
+								//System.out.println(responesHtml);
 								handle(responesHtml,request.getUrl());
 								addCount();
 							}
@@ -125,9 +129,15 @@ public class Spidder extends Thread {
 	}
 	public synchronized void handle(String html,String url){
 		Page page = new Page(html, url, null);
+		
 		News news = processor.pageProcess(page);
-		list.add(news);
+		if(news!=null)
+		{
+			list.add(news);
+		}
+		System.out.println("start herere");
 		List<Request> requests = page.getRequests();
+		
 		if(requests != null){
 			for(Request request:requests){
 				rmDumplicate(request);
@@ -141,6 +151,7 @@ public class Spidder extends Thread {
 			}
 			else{
 				List<String> addUrls = page.getaddUrls();
+				System.out.println(addUrls);
 				if(addUrls != null)
 				{
 					for(String Url:addUrls){
@@ -181,5 +192,16 @@ public class Spidder extends Thread {
 			logger.info("News title:"+news.getNewsContent());
 		}
 		com.github.muyundefeng.utils.saveToFile.saveAsFile(string);
+	}
+	
+	//入口程序
+	public  void startWebSpider(){
+		initComponent();
+		this.start();
+	}
+	//test
+	public static void main(String[] args) {
+		Spidder spidder = new Spidder("1");
+		spidder.startWebSpider();
 	}
 }

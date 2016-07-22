@@ -8,7 +8,7 @@ public class reasonalUrl {
 				|| temp.endsWith(".exe") || temp.endsWith(".jpg") || temp.endsWith(".rar") 
 				|| temp.endsWith(".gif") || temp.contains("#") || temp.endsWith(".png")
 				|| temp.endsWith(".doc")|| temp.endsWith(".xml")
-				|| temp.endsWith(".css") || temp.endsWith(".js"))
+				|| temp.endsWith(".css") || temp.endsWith(".js")||temp.endsWith("javascript"))
 			return false;
 		return true;
 	}

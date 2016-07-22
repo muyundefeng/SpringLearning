@@ -40,11 +40,16 @@ import com.github.muyundfeng.getProcess.Property;
 
 public class myHttpClientDownloader implements Downloader {
     private   CloseableHttpClient httpClient;
-    public  String CHARSET = "UTF-8";
+    public  String CHARSET = "utf-8";
     private  final String POST = "POST";
     private  final String GET = "GET";
 
     public myHttpClientDownloader(String charset) {
+		// TODO Auto-generated constructor stub
+    	httpClient = HttpClients.createDefault();
+    	
+    }
+    public myHttpClientDownloader() {
 		// TODO Auto-generated constructor stub
     	httpClient = HttpClients.createDefault();
     	
@@ -118,7 +123,8 @@ public class myHttpClientDownloader implements Downloader {
 			HttpEntity entity = response.getEntity();
 			String result = null;
 			if (entity != null){
-				CHARSET = getCharset(response);
+				//CHARSET = getCharset(response);
+				System.out.println("charset is: "+CHARSET);
 				result = EntityUtils.toString(entity, CHARSET);
 			}
 			EntityUtils.consume(entity);

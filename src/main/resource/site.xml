@@ -1,6 +1,6 @@
 <sites>
 	<site id='1'>
-	<homepage>http://www.pku.edu.cn/index.htm</homepage>
+	<homepage>http://news.sina.com.cn/</homepage>
 	<pagecharset>utf-8</pagecharset>
 	<pageprocessor>com.github.muyundfeng.pageProcessor.impl.SinaExtra</pageprocessor>
 	</site>
