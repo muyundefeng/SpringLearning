@@ -1,0 +1,6 @@
+本程序是轻量及爬虫处理程序．整个爬虫仿照webmagic进行相关的编写的．程序的入口地址在：com.github.muyundfeng.main包中的Ｓpidder.
+1.怎样添加爬取网站．首先要在resource文件之下定义网站的主页等基本细心．
+２.针对不同的爬取对象需要定义相关的ｍｏｄｌｅ类．
+３.怎样编写爬取信息具体模块．需要在com.github.muyundfeng.pageProcessor.impl包之下定义，定义的类要实现PageProcessor类
+4.需要在baseInfo属性文件中配置代理
+５．如何启动爬虫．在工程根目录之下运行gradle build - gradle run
