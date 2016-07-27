@@ -243,7 +243,7 @@ public class Spidder extends Thread {
 			logger.info("News title:"+news.getNewsAuthor());
 			logger.info("News title:"+news.getNewsContent());
 		}
-		com.github.muyundefeng.utils.saveToFile.saveAsFile(string);
+		//com.github.muyundefeng.utils.saveToFile.saveAsFile(string);
 	}
 	
 	//入口程序

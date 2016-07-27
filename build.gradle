@@ -20,10 +20,13 @@ repositories {
     // You can declare any Maven/Ivy/file repository here.
     mavenCentral()
 }
-jar {
-    manifest {
-        attributes 'Main-Class': 'com.github.muyundfeng.main.Spidder'
+//将相关的资源文件打包到jar文件中区
+sourceSets {
+  main {
+    resources {
+     srcDir 'src/main/resource/'
     }
+  }
 }
 mainClassName = 'com.github.muyundfeng.main.Spidder'
 
