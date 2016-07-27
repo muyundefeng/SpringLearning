@@ -33,16 +33,21 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.params.HttpParams;
 import org.apache.http.protocol.HttpContext;
 import org.apache.http.util.EntityUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.github.muyundefeng.utils.Page;
 import com.github.muyundefeng.utils.Request;
 import com.github.muyundfeng.getProcess.Property;
+import com.github.muyundfeng.pageProcessor.impl.SinaExtra;
 
 public class myHttpClientDownloader implements Downloader {
     private   CloseableHttpClient httpClient;
     public  String CHARSET = "utf-8";
     private  final String POST = "POST";
     private  final String GET = "GET";
+    private Logger logger = LoggerFactory.getLogger(myHttpClientDownloader.class);
+
 
     public myHttpClientDownloader(String charset) {
 		// TODO Auto-generated constructor stub
@@ -67,9 +72,15 @@ public class myHttpClientDownloader implements Downloader {
     
     public  String requestUrl(Request request,Map<String,String> params){
     	RequestBuilder requestBuilder = null;
+    	System.out.println("downloading url "+request.getUrl());
     	if(request.getMethod().equals(GET)){
-    		requestBuilder = RequestBuilder.get(request.getUrl());
-    		 if(params != null)
+    		try{
+    			requestBuilder = RequestBuilder.get(request.getUrl());
+    		}
+    		catch(Exception e){
+    			logger.error(e.toString());
+    		}
+    		if(params != null)
     		 {
     			 for(Map.Entry<String, String> entry:params.entrySet()){
     				 requestBuilder.addHeader(entry.getKey(), entry.getValue());
@@ -105,12 +116,17 @@ public class myHttpClientDownloader implements Downloader {
     	requestBuilder.addHeader("User-Agent",UserAgent[rand]);
     	if(Property.getUseProxy())
     	{
+    		//获取代理服务器
     		String proxyHost = Property.getHostName();
 			int proxyPort = Integer.parseInt(Property.getPort());
 			HttpHost host = new HttpHost(proxyHost, proxyPort, "http");
+			System.out.println(proxyHost);
+			System.out.println(proxyPort);
 			requestConfigBuilder.setProxy(host);
 			//request.putExtra(Request.PROXY, host);
     	}
+    	//设置代理服务器
+    	requestBuilder.setConfig(requestConfigBuilder.build());
     	HttpUriRequest httpUriRequest = requestBuilder.build();
 		try{
 			
@@ -132,7 +148,7 @@ public class myHttpClientDownloader implements Downloader {
 			return result;
 		}
 		catch(Exception e){
-			e.printStackTrace();
+			logger.error(e.toString());
 		}
 		return null;
     }
@@ -153,12 +169,9 @@ public class myHttpClientDownloader implements Downloader {
 	   String content = requestUrl(request, header);
 	   Page page = new Page(content, request.getUrl(),CHARSET);
 	   return page;
-   }
-   
-//    public static void main(String []args){
-//    	Request request = new Request("http://www.baidu.com");
-//    	Page page = downloadPage(request, null);
-//    	System.out.println(page.getSource());
-//    }
-//    
+   } 
+   public static void main(String[] args) {
+	Request request = new Request("http://news.sina.com.cn/");
+	System.out.println(new myHttpClientDownloader().requestUrl(request));
+}
 }

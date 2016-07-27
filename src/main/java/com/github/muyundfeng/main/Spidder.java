@@ -3,12 +3,13 @@ package com.github.muyundfeng.main;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.locks.Condition;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
-import org.junit.validator.PublicClassValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,19 +27,25 @@ import com.github.muyundefeng.utils.reasonalUrl;
  */
 import com.github.muyundefeng.utils.rmDumplicate;
 
+
 public class Spidder extends Thread {
 
 	private readXml initSetting;
 	private Downloader downloader;//网页下载器
 	private String charSet;
 	private String siteId;
-	private static final String STATE_RUNNING = "running";
-	private static final String STATE_STOPPED = "Stopped";
-	private String state;
+	private Lock lock = new ReentrantLock();
+	private Condition condition = lock.newCondition();
+	//private Condition singalCondition = lock.newCondition();
+	private static int  timeout = 5;
+	private static boolean completeExit = false;
+	
 	private boolean stopFlag = false;
 	private boolean success;
 	private Request request;//起始url地址
-	private ExecutorService exec = Executors.newFixedThreadPool(10);//创建具有十个线程的线程池
+	private static int threadNumber = 2; 
+	private final myThreadPool threadPool;
+	//private ExecutorService exec = Executors.newFixedThreadPool(10);//创建具有十个线程的线程池
 	private BlockingQueue<Request> queue = new LinkedBlockingQueue<Request>();
 	private List<News> list = new ArrayList<News>();
 	private PageProcessor processor;
@@ -49,9 +56,9 @@ public class Spidder extends Thread {
 	public Spidder(String id) {
 		// TODO Auto-generated constructor stub
 		this.siteId = id;
-		this.state = STATE_RUNNING;
 		this.initSetting = new readXml();
 		this.success = false;
+		this.threadPool = new myThreadPool(threadNumber, threadNumber);
 	}
 	
 	public void initComponent(){
@@ -64,20 +71,37 @@ public class Spidder extends Thread {
 		count.set(0);
 	}
 	
-	public  synchronized void rmDumplicate(Request request){
+	public  synchronized boolean rmDumplicate(Request request){
 		boolean flag = rmDumplicate.isRmove(request.getUrl());
-		if(flag)
-			try {
-				queue.put(request);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		else {
-			//do nothing
-		}
+		return flag;
 		
 	}
+	//等待线程中获取url的数量
+	public  void waitNewUrl(){
+		lock.lock();
+		try {
+			condition.await(timeout,TimeUnit.SECONDS);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			completeExit = true;
+		}//如果在timeout
+		lock.unlock();
+	}
+	
+	//从队列中取出元素
+	public synchronized Request pollFromQueue(){
+		Request request = queue.poll();
+		return request;	
+	}
+	
+	//将相关的元素存放到队列中去
+	public synchronized void pushToQueue(Request request){
+		if(rmDumplicate(request)){
+			queue.add(request);
+		}
+	}
+	
 	
 	public synchronized void addCount(){
 		if(success)
@@ -88,44 +112,58 @@ public class Spidder extends Thread {
 	}
 	//启动爬虫
 	public void run(){
-		rmDumplicate(request);
-		System.out.println("here");
-		while(true){
-			Runnable runnable = new Runnable() {
-				
-				@Override
-				public void run() {
-					// TODO Auto-generated method stub
-					try {
-						if(!currentThread().isInterrupted()&&state == STATE_RUNNING){
-							if(!queue.isEmpty())
-							{
-								Request request = queue.take();
-								System.out.println("access url:"+request.getUrl());
-								logger.info("process url:"+request.getUrl());
-								String responesHtml = downloader.requestUrl(request);
-								//System.out.println(responesHtml);
-								handle(responesHtml,request.getUrl());
-								addCount();
-							}
-						}
-						else{
-							stopFlag = true;
-						}
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+		logger.info("push request to queue "+request.getUrl());
+		pushToQueue(request);
+		while(true)
+		{
+			logger.info("in while loop");
+			if(completeExit !=true &&stopFlag!=true ){
+				Request request = pollFromQueue();
+				if(request == null){
+					if(threadPool.getAliveNumber() == 0)
+					{
+						logger.info("queue size is 0");
+						break;
 					}
-					
+					waitNewUrl();
 				}
-			};
-			exec.submit(runnable);
-			if(stopFlag == true){
-				exec.shutdown();
+				else
+				{
+					logger.info("execute program here");
+					logger.info(threadPool.toString());
+ 					threadPool.execute( new Runnable() {
+						@Override
+						public void run() {
+							
+							//Request request = pollFromQueue();
+								//Request nextRequest = queue.take();
+							logger.info("access url:"+request.getUrl());
+							logger.info("process url:"+request.getUrl());
+							String responesHtml = downloader.requestUrl(request);
+							//System.out.println(responesHtml);
+							logger.info("donwloading url :"+request.getUrl());
+							//logger.info(responesHtml);
+							handle(responesHtml,request.getUrl());
+							logger.info("elements in queue is:"+queue.size());
+							addCount();
+							logger.info("the program execute here");
+							logger.info("elements in queue is:"+queue.size());
+							signalNewUrl();
+						}
+					});
+					//firstFlag = false;
+					logger.info("hello wolrd");
+				}
+			}
+			else{
 				break;
 			}
-			afterProcess();
+			//exec.submit(runnable);
 		}
+		if(completeExit == true){
+			threadPool.shudowm();
+		}	
+		afterProcess();
 	}
 	public synchronized void handle(String html,String url){
 		Page page = new Page(html, url, null);
@@ -140,14 +178,14 @@ public class Spidder extends Thread {
 		
 		if(requests != null){
 			for(Request request:requests){
-				rmDumplicate(request);
+				pushToQueue(request);
 			}
 		}
 		else
 		{
 			Request request = page.getRequest();
 			if(request != null){
-				rmDumplicate(request);
+				pushToQueue(request);
 			}
 			else{
 				List<String> addUrls = page.getaddUrls();
@@ -157,21 +195,34 @@ public class Spidder extends Thread {
 					for(String Url:addUrls){
 						if(reasonalUrl.isReasonalUrl(url)){
 							Request request2 = new Request(Url);
-							rmDumplicate(request2);
+							pushToQueue(request2);
 						}
 					}
 				}
 				else{
-					String addurl = page.getaddUrl();
-					if(addurl!= null){
-						Request request2 = new Request(addurl);
-						rmDumplicate(request2);
+					List<String> addurls = page.getaddUrl();
+					System.out.println("push url to elements "+addurls);
+					if(addurls!= null){
+						for(String str:addurls)
+						{
+							Request request2 = new Request(str);
+							pushToQueue(request2);
+						}
 					}
 				}
 			}
 		}
 	}
 	
+	 private void signalNewUrl() {
+	        try {
+	            lock.lock();
+	            condition.signalAll();
+	        } finally {
+	        	lock.unlock();
+	        }
+	    }
+	 
 	public void afterProcess(){
 		if(list==null){
 			logger.info("there is no news");
@@ -183,6 +234,7 @@ public class Spidder extends Thread {
 	
 	public void saveToFile(){
 		String string = objectToJson.jsonStr(list);
+		logger.info(string);
 		while(!list.isEmpty()){
 			News news = list.remove(list.size()-1);
 			logger.info("News title:"+news.getNewsTitle());

@@ -1,4 +1,5 @@
 package com.github.muyundefeng.utils;
+import java.util.ArrayList;
 import java.util.List;
 
 //存放网页的基本信息
@@ -17,6 +18,7 @@ public class Page {
 	private Request request;
 	private String addUrl;
 	private List<String> addUrls;
+	private List<String> pageUrls = new ArrayList<String>();
 	
 	private static final String GET = "GET";
 	private static final String POST = "POST";
@@ -44,10 +46,11 @@ public class Page {
 	}
 	
 	public void addTargetString(String url){
-		this.addUrl = url;
+		pageUrls.add(url);
+		//this.addUrl = url;
 	}
-	public String getaddUrl(){
-		return addUrl;
+	public List<String> getaddUrl(){
+		return pageUrls;
 	}
 	
 	

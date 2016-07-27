@@ -11,6 +11,7 @@ import com.github.muyundfeng.getProcess.Property;
 public class saveToFile {
 
 	public static void saveAsFile(String str){
+		System.out.println("string json:"+str);
 		String fileName = Property.getFilePath();
 		File file = new File(fileName);
 		if(!file.exists()){
@@ -36,5 +37,6 @@ public class saveToFile {
 			e.printStackTrace();
 		}
 	}
+	
 	
 }
