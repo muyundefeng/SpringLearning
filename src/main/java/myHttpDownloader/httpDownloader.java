@@ -36,20 +36,20 @@ import org.slf4j.LoggerFactory;
  */
 public class httpDownloader {
 	//public static String path = "http://imtt.dd.qq.com/16891/7C9967AE592C6B1AEC77B9BD71B4F53B.apk?fsname=com.changba_7.4.0_740.apk&csr=4d5s";
-	public static final int threadCount = 3;
+	public static final int threadCount = 5;
 	public volatile AtomicInteger  atomicInteger = new AtomicInteger(threadCount);
 	public static int flag = threadCount;
 	public static final int retryTimes = Property.getRetryTimes();
 	public static Stack<Map<Integer,Map<String,String>>> stack = new Stack<Map<Integer,Map<String,String>>>();//失败的下载任务返回到这里
 	public ExecutorService executorService = Executors.newFixedThreadPool(threadCount);
     private static final Logger logger = LoggerFactory.getLogger(httpDownloader.class);
-//	public String[] filePath = {"/home/lisheng/GradleWorkspace/apks/360/",
-//    		"/home/lisheng/GradleWorkspace/apks/baidu/",
-//    		"/home/lisheng/GradleWorkspace/apks/tencent/"};
-	public String[] filePath = {"/home/suifeng/FileTemp/lisheng/httpDownloader/360/",
-			"/home/suifeng/FileTemp/lisheng/httpDownloader/baidu/",
-			"/home/suifeng/FileTemp/lisheng/httpDownloader/tencent/"};
-	public static final String failedPath = "/home/suifeng/lisheng/httpDownloader/failedTask/";
+	public String[] filePath = {"/home/lisheng/GradleWorkspace/apks/360/",
+    		"/home/lisheng/GradleWorkspace/apks/baidu/",
+    		"/home/lisheng/GradleWorkspace/apks/tencent/"};
+//	public String[] filePath = {"/home/suifeng/FileTemp/lisheng/httpDownloader/360/",
+//			"/home/suifeng/FileTemp/lisheng/httpDownloader/baidu/",
+//			"/home/suifeng/FileTemp/lisheng/httpDownloader/tencent/"};
+	public static final String failedPath = "/home/suifeng/FileTemp/lisheng/httpDownloader/failedTask/";
 	
 	public  void download(String path1,String appName1) throws Exception{
 		//1.连接服务器，获取一个文件，获取文件的长度，在本地创建一个跟服务器一样大小的临时文件
@@ -84,6 +84,8 @@ public class httpDownloader {
 		if(Property.getUseProxy()){
 			proxyHost =  proxys[rand].split(":")[0];
 			proxyPort = Integer.parseInt(proxys[rand].split(":")[1]);//分离出端口号
+//			proxyHost = Property.getHostName();
+//			proxyPort = Integer.parseInt(Property.getPort());
 			logger.info("proxyHost="+proxyHost+","+"proxyPort="+proxyPort);
 		}
 		
@@ -111,6 +113,11 @@ public class httpDownloader {
 			logger.info("文件总长度"+length);
 			//在客户端本地创建出来一个大小跟服务器端一样大小的临时文件
 			String fileName = getFilePath(path, appName);
+			File file = new File(fileName);
+			if(file.exists()){
+				file.delete();
+				file.createNewFile();
+			}
 			RandomAccessFile raf = new RandomAccessFile(fileName, "rwd");
 			//指定创建的这个文件的长度
 			raf.setLength(length);
@@ -131,7 +138,7 @@ public class httpDownloader {
 				if(atomicInteger.get()==0){
 					break;
 				}
-				Thread.sleep(5000);
+				Thread.sleep(500);
 			}
 			atomicInteger.set(threadCount);
 		
@@ -161,7 +168,7 @@ public class httpDownloader {
 		System.out.println(info);
 		String fileName =  "";
 		try{
-			if(info.contains("gdown.baidu.com/")){
+			if(info.contains("gdown.baidu.com/")||info.contains("resget.91.com")){
 				fileName = "baidu-failed.txt";
 			}
 			else{
@@ -207,7 +214,7 @@ public class httpDownloader {
 	 */
 	public  String getFilePath(String url,String appName) {
 		String path = null;
-		if(url.contains("http://p.gdown.baidu.com/")){
+		if(url.contains("http://p.gdown.baidu.com/")||url.contains("resget.91.com")){
 			path = filePath[1]; 
 		}
 		else{
@@ -256,19 +263,18 @@ public class httpDownloader {
 		return sb.toString();
 	}
 	public static void main(String[] args) {
-		String[] sourceFile = {"info.txt","info1.txt","info2.txt"};
-		String dir = "";
-		if(args.length<=0){
-			logger.info("please enter validate argument");
-		}
-		else{
-			dir = sourceFile[Integer.parseInt(args[0])];
-		}
-		
+//		String[] sourceFile = {"info.txt","info1.txt","info2.txt"};
+//		String dir = "";
+//		if(args.length<=0){
+//			logger.info("please enter validate argument");
+//		}
+//		else{
+//			dir = sourceFile[Integer.parseInt(args[0])];
+//		}
 		httpDownloader httpDownloader = new httpDownloader();
-//		String json = httpDownloader.readInfoFromText("/home/lisheng/data/info2.txt");
+		String json = httpDownloader.readInfoFromText("/home/lisheng/data/info2.txt");
 
-		String json = httpDownloader.readInfoFromText("/home/suifeng/FileTemp/lisheng/httpDownloader/info/"+dir);
+//		String json = httpDownloader.readInfoFromText("/home/suifeng/FileTemp/lisheng/httpDownloader/info/"+dir);
 		logger.info(json);
 		ObjectMapper objectMapper = new ObjectMapper();
 		Queue<Map<String, String>> queue = null;
@@ -317,6 +323,7 @@ public class httpDownloader {
 	 */
 	class DownLoadThread implements Callable<String>{
 		private int threadId;
+		int bufferSize= 300*1024;
 		private int startIndex;
 		private int endIndex;
 		private String fileName;
@@ -368,9 +375,10 @@ public class httpDownloader {
 				//随机写文件的时候从哪个位置开始写
 				raf.seek(startIndex);//定位文件
 				int len = 0;
-				byte[] buffer = new byte[10240];
+			
+				byte[] buffer = new byte[bufferSize];
 				while ((len = is.read(buffer)) != -1) {
-					//System.out.println(len);
+					//System.out.println(Thread.currentThread().getName()+"  "+len);
 					raf.write(buffer, 0, len);
 				}
 				is.close();
