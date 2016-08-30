@@ -17,7 +17,7 @@ import com.muyundefeng.trinity.Text;
  */
 public class InputDocument {
 
-	private static final String FILE_DIR = "./htmls";
+	private static final String FILE_DIR = "/home/lisheng/GradleWorkplace/TrinityTest/src/main/resources/htmls/";
 	
 	/**默认读取html文件得目录是在resource目录之下
 	 * @throws IOException
@@ -25,11 +25,13 @@ public class InputDocument {
 	public static List<Text> getDefaultReadHtml() throws IOException{
 		List<Text> texts = new ArrayList<Text>();
 		File file = new File(FILE_DIR);
+		System.out.println(file.getAbsolutePath());
 		if(!file.exists())
 			System.out.println("不存在本目录!");
 		String htmlName[] = file.list();
 		for(String str:htmlName){
-			File file2 = new File(str);
+			System.out.println(str);
+			File file2 = new File(FILE_DIR + str);
 			String sourceText = "";
 			if(file2.isFile()){
 				InputStreamReader inputStreamReader = new InputStreamReader(new FileInputStream(file2));
