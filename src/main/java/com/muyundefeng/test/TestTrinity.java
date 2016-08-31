@@ -1,8 +1,10 @@
 package com.muyundefeng.test;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.muyundefeng.input.InputDocument;
 import com.muyundefeng.trinity.CreateTrinity;
@@ -16,6 +18,8 @@ import com.muyundefeng.trinity.Text;
  */
 public class TestTrinity {
 	
+    private static Logger logger = LoggerFactory.getLogger(TestTrinity.class);
+
 	public static boolean isVariable(Node node){
 		boolean isVariable = true;
 		List<Text> texts = node.getTexts();
@@ -46,6 +50,8 @@ public class TestTrinity {
 	public static void preScanTrinity(Node node){
 		List<Text> texts = node.getTexts();
 		System.out.println("-----------------");
+		if(node.getPattern()!=null)
+			System.out.println(node.getPattern().getString());
 		for(Text text:texts)
 		{
 			System.out.println(text.getText());
@@ -74,6 +80,8 @@ public class TestTrinity {
 		CreateTrinity trinity = new CreateTrinity();
 		trinity.createTrinity(node);
 		preScanTrinity(node);
-		
+		LearnTemplate learnTemplate = new LearnTemplate();
+		String result = learnTemplate.learnTemplate(node, "");
+		logger.info("result="+result);
 	}
 }

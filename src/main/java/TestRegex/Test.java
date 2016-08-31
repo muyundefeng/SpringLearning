@@ -138,11 +138,16 @@ public class Test {
 		
 	} 
 	public static void main(String[] args) {
-//		int count = 0;
+		int count = 0;
 //		String  string = "adacc";
 //		System.out.println(string.substring(1, 3));
 		String str ="PHP<br/><b>Gilmore</b><br/>$34.99<br/><br/>	PHP Solutions<br/><b>Powers</b><br/>$26.99<br/></body></html> g";
-		System.out.println(str.split("<br/></body></html>").length);
+		Pattern pattern2 = Pattern.compile("<br/><b>");
+		Matcher m = pattern2.matcher(str);  
+		while(m.find()){
+			count ++;
+		}
+		System.out.println(count);
 		//System.out.println(StringUtils.substringBetween(str,"</b>", "</b><br/>"));
 //		System.out.println(strExitAndAfterPattern(new Text(str), "</b><br/>$35.99<br/><br/>", "<b>"));
 //		System.out.println(strExitAndBeforePattern(new Text(str), "</b><br/>$35.99<br/><br/>", "<b>"));

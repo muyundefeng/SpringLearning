@@ -4,6 +4,10 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+
 /**遍历三叉树,生成模板算法
  * @author lisheng
  *
@@ -24,32 +28,50 @@ public class LearnTemplate {
 	
 	public static final String HAVE_CHAES = "+";
 	
+    private static Logger logger = LoggerFactory.getLogger(LearnTemplate.class);
 	/**自动生成正则表达式主要方法
 	 * @param node
 	 * @return
 	 */
 	public String learnTemplate(Node node,String result){
+		List<Text> texts1 = node.getTexts();
+		for(Text text:texts1)
+			logger.info("访问三叉树节点="+text.getText());
 		if(isOptional(node)){
 			result += "(";
+			List<Text> texts = node.getTexts();
+			for(Text text:texts)
+				logger.info("访问可选三叉树节点="+text.getText());
 		}
 		if(isLeaf(node))
 		{
 			if(isVariable(node)){
 				result += freshCaptureGroup();
+				List<Text> texts = node.getTexts();
+				for(Text text:texts)
+					logger.info("访问捕获成功三叉树节点="+text.getText());
+				logger.info("捕获信息成功之后的result结果＝"+result);
 			}
 		}
 		else{
-			result += learnTemplate(node.getPreffixNode(),result);
+//			String raw = learnTemplate(node.getPreffixNode(),result);
+//			logger.info("递归之前result="+result);
+			result += learnTemplate(node.getPreffixNode(),"");
+			//logger.info("递归调用返回result="+raw);
+			logger.info("捕获的模板为＝"+node.getPattern().getString());
+			logger.info("result="+result);
 			result += node.getPattern().getString();
+			logger.info("result="+result);
 			if(isRepeatable(node)){
-				result += "(" +  learnTemplate(node.getSeparatorNode(), result)
+				logger.info("Repeat");
+				result += "(" +  learnTemplate(node.getSeparatorNode(), "")
 					+ node.getPattern().getString();
 				if(contain(node))
 					result += ")" + CAN_HAVE_CHARS;
 				else
 					result += ")" + HAVE_CHAES;
 			}
-			result += learnTemplate(node.getSuffixNode(), result);
+			result += learnTemplate(node.getSuffixNode(), "");
 		}
 		if(isOptional(node))
 			result += ")" + OPTION_CHAR;
@@ -64,16 +86,19 @@ public class LearnTemplate {
 	public boolean isOptional(Node node){
 		List<Text> list = node.getTexts();
 		boolean isOptional = false;
+		int noEmpty = 0;
+		int empty = 0;
 		for(Text text:list){ 
-			if(text.equals(NO_PREFFIX)||text.equals(NO_SEPERATOR)
-					||text.equals(NO_SUFFIX)){
-				isOptional = true;
-				break;
+			if(text.getText().equals(NO_PREFFIX)||text.getText().equals(NO_SEPERATOR)
+					||text.getText().equals(NO_SUFFIX)){
+				empty ++;
 			}
 			else{
-				isOptional &= false;
+				noEmpty ++;
 			}
 		}
+		if(empty>0&&empty<list.size())
+			isOptional = true;
 		return isOptional;
 	}
 	
@@ -88,13 +113,14 @@ public class LearnTemplate {
 		List<Text> texts = node.getTexts();
 		for(Text text:texts){
 			if(count(text.getText(),pattern) > 1){
-				isRepeatable = true;
+				isRepeatable |= true;
 				break;
 			}
 			else{
-				isRepeatable &= false;
+				isRepeatable |= false;
 			}
 		}
+		logger.info("isRepeatable="+isRepeatable);
 		return isRepeatable;
 	}
 	
@@ -104,9 +130,11 @@ public class LearnTemplate {
 	 * @return
 	 */
 	public int count(String text,String pattern){
+		if(text.equals(NO_SEPERATOR))
+			return -1;
 		int count = 0;
 		Pattern pattern2 = Pattern.compile(pattern);
-		Matcher m = pattern2.matcher(pattern);  
+		Matcher m = pattern2.matcher(text);  
 		while(m.find()){
 			count ++;
 		}
@@ -155,7 +183,9 @@ public class LearnTemplate {
 		boolean isVariable = true;
 		List<Text> texts = node.getTexts();
 		for(Text text:texts){
-			if(text.getText().contains("<"))
+			if(!text.getText().contains("<")&&!text.getText().equals(NO_PREFFIX)
+					&&!text.getText().equals(NO_SEPERATOR)
+					&&!text.getText().equals(NO_SUFFIX))
 				isVariable &= true;
 			else
 			{

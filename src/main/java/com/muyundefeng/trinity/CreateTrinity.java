@@ -632,11 +632,6 @@ public class CreateTrinity {
 			return temp[temp.length-1];
 		else
 			return null;
-//		logger.info(raw);
-//		if(raw.length()>0)
-//			return raw;
-//		else
-//			return null;
 	}
 	
 }
