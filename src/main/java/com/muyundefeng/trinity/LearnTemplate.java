@@ -155,7 +155,7 @@ public class LearnTemplate {
 		boolean isVariable = true;
 		List<Text> texts = node.getTexts();
 		for(Text text:texts){
-			if(text.getText().contains("<")&&text.getText().contains(">"))
+			if(text.getText().contains("<"))
 				isVariable &= true;
 			else
 			{

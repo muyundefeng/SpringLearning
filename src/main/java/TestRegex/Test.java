@@ -110,17 +110,49 @@ public class Test {
 		else
 			System.out.println("no");
 	}
+	public static String strExitAndAfterPattern(Text text, String pattern, String sperator){
+		String betweenTextSep = StringUtils.substringBetween(text.getText(),sperator,pattern );
+
+		if(betweenTextSep.length()>0){
+			return betweenTextSep;
+		}
+		else {
+			return "";
+		}
+		
+	}
+	/**查看分隔符前面，如果存在则返回相关的字符串信息
+	 * @param text　
+	 * @param pattern
+	 * @param list　表明了模板相关位置
+	 * @return
+	 */
+	public static String strExitAndBeforePattern(Text text, String pattern, String sperator){
+		String betweenTextSep = StringUtils.substringBetween(text.getText(), pattern,sperator );
+		if(betweenTextSep.length()>0){
+			return betweenTextSep;
+		}
+		else {
+			return "";
+		}
+		
+	} 
 	public static void main(String[] args) {
 //		int count = 0;
 //		String  string = "adacc";
 //		System.out.println(string.substring(1, 3));
-		String str ="java<br/><b>Bloch</b><br/>$53.53<br/></body></html>";
-		int start = realStartIndex(new Text(str), 1);
-		int end = realEndIndex(new Text(str), 5);
-		System.out.println("str="+str.substring(start, end));
-		int start1 = StringUtil.realStartIndex(new Text(str), 1);
-		int end1 = StringUtil.realEndIndex(new Text(str), 5);
-		System.out.println("str1="+str.substring(start1, end1));
+		String str ="PHP<br/><b>Gilmore</b><br/>$34.99<br/><br/>	PHP Solutions<br/><b>Powers</b><br/>$26.99<br/></body></html> g";
+		System.out.println(str.split("<br/></body></html>").length);
+		//System.out.println(StringUtils.substringBetween(str,"</b>", "</b><br/>"));
+//		System.out.println(strExitAndAfterPattern(new Text(str), "</b><br/>$35.99<br/><br/>", "<b>"));
+//		System.out.println(strExitAndBeforePattern(new Text(str), "</b><br/>$35.99<br/><br/>", "<b>"));
+//		System.out.println(str.indexOf("hello"));
+//		int start = realStartIndex(new Text(str), 0);
+//		int end = realEndIndex(new Text(str), 2);
+//		System.out.println("str="+str.substring(start, end));
+//		int start1 = StringUtil.realStartIndex(new Text(str), 1);
+//		int end1 = StringUtil.realEndIndex(new Text(str), 5);
+//		System.out.println("str1="+str.substring(start1, end1));
 		
 //		str =str.replaceFirst("<[^>]*>", "");
 //		System.out.println(str);
