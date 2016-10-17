@@ -28,7 +28,7 @@ sourceSets {
     }
   }
 }
-mainClassName = 'com.github.muyundfeng.main.Spidder'
+mainClassName = 'myHttpDownloader.HttpDownload'
 
 // In this section you declare the dependencies for your production and test code
 dependencies {
@@ -43,17 +43,10 @@ dependencies {
     // https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient
     
 	compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.5.1'
-    // https://mvnrepository.com/artifact/org.apache.commons/commons-lang3
 	compile group: 'commons-lang', name: 'commons-lang', version: '2.6'
-	// https://mvnrepository.com/artifact/net.sf.json-lib/json-lib
-	// https://mvnrepository.com/artifact/org.codehaus.jackson/jackson-core-asl
-	// https://mvnrepository.com/artifact/org.codehaus.jackson/jackson-mapper-asl
 	compile group: 'org.codehaus.jackson', name: 'jackson-mapper-asl', version: '1.9.13'
-	//compile group: 'org.apache.httpcomponents', name: 'httpclient', version: '4.4.1'
 	compile group: 'us.codecraft', name: 'xsoup', version: '0.3.1'
-	// https://mvnrepository.com/artifact/org.slf4j/slf4j-log4j12
 	compile group: 'org.slf4j', name: 'slf4j-log4j12', version: '1.7.7'
-	// https://mvnrepository.com/artifact/org.jsoup/jsoup
 	compile group: 'org.apache.stanbol', name: 'org.apache.stanbol.enhancer.engines.htmlextractor', version: '0.12.0'
     testCompile 'junit:junit:4.12'
 }
