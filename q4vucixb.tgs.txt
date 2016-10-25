@@ -1,0 +1,139 @@
+﻿add new channels
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+# On branch dev_lisheng
+# Your branch is up-to-date with 'pb/dev_lisheng'.
+#
+# Changes to be committed:
+#	new file:   src/main/java/com/appCrawler/pagePro/App15666.java
+#	new file:   src/main/java/com/appCrawler/pagePro/App51.java
+#	new file:   src/main/java/com/appCrawler/pagePro/App87g.java
+#	new file:   src/main/java/com/appCrawler/pagePro/Cnd8.java
+#	modified:   src/main/java/com/appCrawler/pagePro/Diyiapp.java
+#	new file:   src/main/java/com/appCrawler/pagePro/Downxia.java
+#	new file:   src/main/java/com/appCrawler/pagePro/Edown7.java
+#	new file:   src/main/java/com/appCrawler/pagePro/Gaoshouyou.java
+#	new file:   src/main/java/com/appCrawler/pagePro/Myapks.java
+#	modified:   src/main/java/com/appCrawler/pagePro/PageProDowng.java
+#	new file:   src/main/java/com/appCrawler/pagePro/Paogame.java
+#	modified:   src/main/java/com/appCrawler/pagePro/Pptv.java
+#	modified:   src/main/java/com/appCrawler/pagePro/Qmy9.java
+#	new file:   src/main/java/com/appCrawler/pagePro/Qqtn.java
+#	new file:   src/main/java/com/appCrawler/pagePro/Sopopo.java
+#	new file:   src/main/java/com/appCrawler/pagePro/Veryhuo.java
+#	modified:   src/main/java/com/appCrawler/pagePro/Vipcn.java
+#	new file:   src/main/java/com/appCrawler/pagePro/Wei2008.java
+#	new file:   src/main/java/com/appCrawler/pagePro/Xinshoucun.java
+#	new file:   src/main/java/com/appCrawler/pagePro/Zhaichong.java
+#	new file:   src/main/java/com/appCrawler/pagePro/Zhuantilan.java
+#	modified:   src/main/java/com/appCrawler/pagePro/Zhuoyi.java
+#	new file:   src/main/java/com/appCrawler/pagePro/apkDetails/App15666_Detail.java
+#	new file:   src/main/java/com/appCrawler/pagePro/apkDetails/App51_Detail.java
+#	new file:   src/main/java/com/appCrawler/pagePro/apkDetails/App87g_Detail.java
+#	new file:   src/main/java/com/appCrawler/pagePro/apkDetails/Cnd8_Detail.java
+#	new file:   src/main/java/com/appCrawler/pagePro/apkDetails/Down9_Detail.java
+#	new file:   src/main/java/com/appCrawler/pagePro/apkDetails/Downxia_Detail.java
+#	new file:   src/main/java/com/appCrawler/pagePro/apkDetails/Edown7_Detail.java
+#	new file:   src/main/java/com/appCrawler/pagePro/apkDetails/Gaoshouyou_Detail.java
+#	new file:   src/main/java/com/appCrawler/pagePro/apkDetails/Myapks_Detail.java
+#	new file:   src/main/java/com/appCrawler/pagePro/apkDetails/Paogame_Detail.java
+#	new file:   src/main/java/com/appCrawler/pagePro/apkDetails/Pthus_Detail.java
+#	new file:   src/main/java/com/appCrawler/pagePro/apkDetails/Qqtn_Detail.java
+#	new file:   src/main/java/com/appCrawler/pagePro/apkDetails/Sopopo_Detail.java
+#	new file:   src/main/java/com/appCrawler/pagePro/apkDetails/Veryhuo_Detail.java
+#	new file:   src/main/java/com/appCrawler/pagePro/apkDetails/Wei2008_Detail.java
+#	new file:   src/main/java/com/appCrawler/pagePro/apkDetails/Xinshoucun_Detail.java
+#	new file:   src/main/java/com/appCrawler/pagePro/apkDetails/Zhaichong_Detail.java
+#	new file:   src/main/java/com/appCrawler/pagePro/apkDetails/Zhuantilan_Detail.java
+#	new file:   src/main/java/com/appCrawler/pagePro/fullstack/App15666.java
+#	new file:   src/main/java/com/appCrawler/pagePro/fullstack/App51.java
+#	new file:   src/main/java/com/appCrawler/pagePro/fullstack/App87g.java
+#	new file:   src/main/java/com/appCrawler/pagePro/fullstack/Down9.java
+#	new file:   src/main/java/com/appCrawler/pagePro/fullstack/Downxia.java
+#	new file:   src/main/java/com/appCrawler/pagePro/fullstack/Edown7.java
+#	new file:   src/main/java/com/appCrawler/pagePro/fullstack/Gaoshouyou.java
+#	new file:   src/main/java/com/appCrawler/pagePro/fullstack/Myapks.java
+#	new file:   src/main/java/com/appCrawler/pagePro/fullstack/Paogame.java
+#	new file:   src/main/java/com/appCrawler/pagePro/fullstack/Pthus.java
+#	new file:   src/main/java/com/appCrawler/pagePro/fullstack/Qqtn.java
+#	new file:   src/main/java/com/appCrawler/pagePro/fullstack/Sopopo.java
+#	new file:   src/main/java/com/appCrawler/pagePro/fullstack/Veryhuo.java
+#	new file:   src/main/java/com/appCrawler/pagePro/fullstack/Wei2008.java
+#	new file:   src/main/java/com/appCrawler/pagePro/fullstack/Xinshou.java
+#	new file:   src/main/java/com/appCrawler/pagePro/fullstack/Xinshoucun.java
+#	new file:   src/main/java/com/appCrawler/pagePro/fullstack/Zhaichong.java
+#	new file:   src/main/java/com/appCrawler/pagePro/fullstack/Zhuantilan.java
+#	modified:   src/main/java/us/codecraft/webmagic/SpiderTrigger.java
+#	modified:   src/main/java/us/codecraft/webmagic/downloader/CurlPostPageDownloader.java
+#	modified:   src/main/java/us/codecraft/webmagic/downloader/SinglePageDownloader.java
+#	modified:   src/main/java/us/codecraft/webmagic/utils/PostSubmit.java
+#	modified:   src/main/resources/baseInfo.properties
+#	modified:   src/main/resources/sitesInfo.xml
+#	modified:   target/classes/META-INF/maven/com.buildhappy/subtask/pom.properties
+#	modified:   target/classes/baseInfo.properties
+#	new file:   target/classes/com/appCrawler/pagePro/App15666.class
+#	new file:   target/classes/com/appCrawler/pagePro/App51.class
+#	new file:   target/classes/com/appCrawler/pagePro/App87g.class
+#	new file:   target/classes/com/appCrawler/pagePro/Cnd8.class
+#	modified:   target/classes/com/appCrawler/pagePro/Diyiapp.class
+#	new file:   target/classes/com/appCrawler/pagePro/Downxia.class
+#	new file:   target/classes/com/appCrawler/pagePro/Edown7.class
+#	new file:   target/classes/com/appCrawler/pagePro/Gaoshouyou.class
+#	new file:   target/classes/com/appCrawler/pagePro/Myapks.class
+#	modified:   target/classes/com/appCrawler/pagePro/PageProDowng.class
+#	new file:   target/classes/com/appCrawler/pagePro/Paogame.class
+#	modified:   target/classes/com/appCrawler/pagePro/Pptv.class
+#	modified:   target/classes/com/appCrawler/pagePro/Qmy9.class
+#	new file:   target/classes/com/appCrawler/pagePro/Qqtn.class
+#	new file:   target/classes/com/appCrawler/pagePro/Sopopo.class
+#	new file:   target/classes/com/appCrawler/pagePro/Veryhuo.class
+#	modified:   target/classes/com/appCrawler/pagePro/Vipcn.class
+#	new file:   target/classes/com/appCrawler/pagePro/Wei2008.class
+#	new file:   target/classes/com/appCrawler/pagePro/Xinshoucun.class
+#	new file:   target/classes/com/appCrawler/pagePro/Zhaichong.class
+#	new file:   target/classes/com/appCrawler/pagePro/Zhuantilan.class
+#	modified:   target/classes/com/appCrawler/pagePro/Zhuoyi.class
+#	new file:   target/classes/com/appCrawler/pagePro/apkDetails/App15666_Detail.class
+#	new file:   target/classes/com/appCrawler/pagePro/apkDetails/App51_Detail.class
+#	new file:   target/classes/com/appCrawler/pagePro/apkDetails/App87g_Detail.class
+#	new file:   target/classes/com/appCrawler/pagePro/apkDetails/Cnd8_Detail.class
+#	new file:   target/classes/com/appCrawler/pagePro/apkDetails/Down9_Detail.class
+#	new file:   target/classes/com/appCrawler/pagePro/apkDetails/Downxia_Detail.class
+#	new file:   target/classes/com/appCrawler/pagePro/apkDetails/Edown7_Detail.class
+#	new file:   target/classes/com/appCrawler/pagePro/apkDetails/Gaoshouyou_Detail.class
+#	new file:   target/classes/com/appCrawler/pagePro/apkDetails/Myapks_Detail.class
+#	new file:   target/classes/com/appCrawler/pagePro/apkDetails/Paogame_Detail.class
+#	new file:   target/classes/com/appCrawler/pagePro/apkDetails/Pthus_Detail.class
+#	new file:   target/classes/com/appCrawler/pagePro/apkDetails/Qqtn_Detail.class
+#	new file:   target/classes/com/appCrawler/pagePro/apkDetails/Sopopo_Detail.class
+#	new file:   target/classes/com/appCrawler/pagePro/apkDetails/Veryhuo_Detail.class
+#	new file:   target/classes/com/appCrawler/pagePro/apkDetails/Wei2008_Detail.class
+#	new file:   target/classes/com/appCrawler/pagePro/apkDetails/Xinshoucun_Detail.class
+#	new file:   target/classes/com/appCrawler/pagePro/apkDetails/Zhaichong_Detail.class
+#	new file:   target/classes/com/appCrawler/pagePro/apkDetails/Zhuantilan_Detail.class
+#	new file:   target/classes/com/appCrawler/pagePro/fullstack/App15666.class
+#	new file:   target/classes/com/appCrawler/pagePro/fullstack/App51.class
+#	new file:   target/classes/com/appCrawler/pagePro/fullstack/App87g.class
+#	new file:   target/classes/com/appCrawler/pagePro/fullstack/Down9.class
+#	new file:   target/classes/com/appCrawler/pagePro/fullstack/Downxia.class
+#	new file:   target/classes/com/appCrawler/pagePro/fullstack/Edown7.class
+#	new file:   target/classes/com/appCrawler/pagePro/fullstack/Gaoshouyou.class
+#	new file:   target/classes/com/appCrawler/pagePro/fullstack/Myapks.class
+#	new file:   target/classes/com/appCrawler/pagePro/fullstack/Paogame.class
+#	new file:   target/classes/com/appCrawler/pagePro/fullstack/Pthus.class
+#	new file:   target/classes/com/appCrawler/pagePro/fullstack/Qqtn.class
+#	new file:   target/classes/com/appCrawler/pagePro/fullstack/Sopopo.class
+#	new file:   target/classes/com/appCrawler/pagePro/fullstack/Veryhuo.class
+#	new file:   target/classes/com/appCrawler/pagePro/fullstack/Wei2008.class
+#	new file:   target/classes/com/appCrawler/pagePro/fullstack/Xinshou.class
+#	new file:   target/classes/com/appCrawler/pagePro/fullstack/Xinshoucun.class
+#	new file:   target/classes/com/appCrawler/pagePro/fullstack/Zhaichong.class
+#	new file:   target/classes/com/appCrawler/pagePro/fullstack/Zhuantilan.class
+#	modified:   target/classes/sitesInfo.xml
+#	modified:   target/classes/us/codecraft/webmagic/SpiderTrigger.class
+#	modified:   target/classes/us/codecraft/webmagic/downloader/CurlPostPageDownloader.class
+#	modified:   target/classes/us/codecraft/webmagic/downloader/SinglePageDownloader.class
+#	modified:   target/classes/us/codecraft/webmagic/utils/PostSubmit.class
+#	modified:   target/subtask.jar
+#
+

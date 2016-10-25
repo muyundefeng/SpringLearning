@@ -1,0 +1,141 @@
+apply plugin: 'war'
+apply plugin: 'maven'
+apply plugin: 'distribution'
+apply plugin: 'maven-publish'
+apply plugin: 'eclipse'
+
+buildscript {
+  repositories {
+//    jcenter()
+    maven {
+      url 'https://plugins.gradle.org/m2'
+    }
+    mavenCentral()
+	
+   	maven { url 'http://maven.oschina.net/content/groups/public/'}
+  }
+
+  dependencies {
+    classpath 'org.akhikhl.gretty:gretty:1.2.4'
+    classpath 'org.asciidoctor:asciidoctor-gradle-plugin:1.5.3'
+    classpath 'org.asciidoctor:asciidoctorj-epub3:1.5.0-alpha.5.1'
+    classpath 'org.asciidoctor:asciidoctorj-pdf:1.5.0-alpha.10.1'
+  }
+}
+
+apply plugin: 'org.akhikhl.gretty'
+apply plugin: 'org.asciidoctor.convert'
+
+group = 'com.buptnsrc.asec.crawler'
+version = '0.0.1-SNAPSHOT'
+
+description = "subtask Maven Webapp"
+
+// sourceCompatibility = 1.7
+// targetCompatibility = 1.7
+[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+repositories {
+
+	 maven { url 'http://repo1.maven.org/maven2/'}
+     maven {	
+       url 'http://nexus.buptnsrc.com/content/groups/public' // our lab maven repository proxy
+     }
+     mavenCentral()
+     jcenter()
+     mavenLocal()
+
+}
+
+dependencies {
+    def spring_version = '4.1.1.RELEASE'
+
+    compile group: 'org.assertj', name: 'assertj-core', version:'1.6.1'
+    compile group: 'commons-io', name: 'commons-io', version:'2.4'
+    compile group: 'org.apache.commons', name: 'commons-lang3', version:'3.3.2'
+    compile group: 'commons-pool', name: 'commons-pool', version:'1.6'
+    compile group: 'org.apache.httpcomponents', name: 'httpclient', version:'4.3.5'
+    compile group: 'com.alibaba', name: 'fastjson', version:'1.1.41'
+    compile group: 'net.sf.ezmorph', name: 'ezmorph', version:'1.0.6'
+    compile group: 'commons-beanutils', name: 'commons-beanutils', version:'1.9.2'
+    compile group: 'org.codehaus.jackson', name: 'jackson-mapper-asl', version:'1.9.8'
+    compile group: 'net.sf.json-lib', name: 'json-lib', version:'2.4', classifier:'jdk15'
+    compile group: 'org.springframework', name: 'spring-core', version:"${spring_version}"
+    compile group: 'org.springframework', name: 'spring-web', version:"${spring_version}"
+    compile group: 'org.springframework', name: 'spring-webmvc', version:"${spring_version}"
+    compile group: 'jstl', name: 'jstl', version:'1.2'
+    compile group: 'taglibs', name: 'standard', version:'1.1.1'
+    compile group: 'net.sourceforge.htmlunit', name: 'htmlunit', version:'2.15'   
+	compile 'org.slf4j:slf4j-api:1.7.7'
+    compile 'org.slf4j:slf4j-log4j12:1.7.7'
+	compile group: 'junit', name:'junit',version:'3.8.1'
+	compile group: 'javax.servlet',name:'javax.servlet-api',version:'3.1.0'
+	compile group: 'com.google.guava',name:'guava',version:'17.0'
+	compile group: 'org.jsoup',name:'jsoup',version:'1.7.3'
+	compile 'com.jayway.jsonpath:json-path:0.8.1'
+	compile 'us.codecraft:xsoup:0.2.4'
+	
+
+}
+
+gretty {
+  host = '0.0.0.0'
+  port = 9000
+  contextPath = ''
+}
+
+asciidoctorj {
+      version = '1.5.3'
+}
+
+asciidoctor {
+  backends   'html5','pdf' // ,'epub3'
+  attributes 'endpoint-url': 'http://example.org',
+	     'source-highlighter' : 'coderay',
+	     'imagesdir': './images',
+	     'toc':'left',
+	     'icons': 'font',
+	     'setanchors':'true',
+	     'idprefix':'',
+	     'idseparator':'-',
+	     'docinfo1':'true'
+}
+
+distributions {
+  main {
+        baseName = archivesBaseName
+
+	contents {
+	  from {
+	    libsDir
+	  }
+	}
+  }
+}
+
+publishing {
+  publications {
+    plugin(MavenPublication) {
+            from components.web
+	          artifactId 'crawler-web'
+    }
+  }
+  repositories {
+    maven {
+             name 'myLocal'
+	            url "file://$projectDir/../repo"
+    }
+    maven {
+            name 'myLab'
+	    credentials {
+	      username = 'greatdreams'
+	      password = '893557whw'
+	    }
+	          url "http://nexus.buptnsrc.com/content/repositories/thirdparty/"
+    }
+  }
+}
+
+ 
+
+
+
