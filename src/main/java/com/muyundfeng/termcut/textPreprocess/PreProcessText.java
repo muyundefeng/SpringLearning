@@ -69,7 +69,7 @@ public class PreProcessText {
 	
 	public void TFStastic(String text,String docId){
 		String afterProcessNumber = text.replaceAll("\\d", "");
-		String afterProcessStop = afterProcessNumber.replaceAll( "\\p{Punct}", "" );
+		String afterProcessStop = afterProcessNumber.replaceAll( "\\p{Punct}", " " );
 		String temp[] = StringUtils.split(afterProcessStop, " ");
 		List<String> words = Arrays.asList(temp);
 		Map<String, Integer> termToTf = new HashMap<String, Integer>();
