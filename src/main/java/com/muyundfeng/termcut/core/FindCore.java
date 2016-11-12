@@ -13,13 +13,15 @@ import java.util.Set;
 
 public class FindCore {
 	
-	private Map<String, List<Double>> vertexes = null;
+	private Map<String, List<Double>> vertexes = null;//进行相关文本处理的特征向量集
 
-	private List<String> docIds = null;
+	private List<String> docIds = null;//文档标识符
+	
+	private Map<String, List<Map<Set<String>, List<Double>>>> gloableCluster = null;//要重构前面的类，主要是数据结构的变化，预留出接口,在未聚类表示一个大的聚类
 
-	private Map<String, List<Map<Set<String>, List<Double>>>> gloableCluster = null;//要重构前面的类，主要是数据结构的变化，预留出接口
-
-	private double globalRMCut = 0;//保存最小的RMCut标准
+	private double currentRMCut = Double.MAX_VALUE;//保存最小的RMCut标准
+	
+	private double originalRMCut = Double.MAX_VALUE;//保存上一次的RMCut计算公式
 	
 	private double Threshold = 0;//指定相关的阈值
 	
@@ -27,10 +29,30 @@ public class FindCore {
 	
 	private int clusterNumber = 0;//记录聚类的数量
 	
-	public FindCore(int threshold) {
+	private double lastRMCut = 0;//保存上一个rmcut值
+	
+	public FindCore() {
+		// TODO Auto-generated constructor stub
+		labels = new LabelGenerator(Integer.MAX_VALUE);
+		this.Threshold = 0.3;
+	}
+	
+	public FindCore(double threshold) {
 		// TODO Auto-generated constructor stub
 		this.Threshold = threshold;
-		labels = new LabelGenerator(docIds.size());
+		labels = new LabelGenerator(Integer.MAX_VALUE);
+	}
+	
+	/**初始化相关变量
+	 * @param vertexes　特征向量
+	 * @param docIds　文档标识符
+	 * @param gloableCluster　初始聚类
+	 */
+	public void initVal(Map<String, List<Double>> vertexes, List<String> docIds,
+			Map<String, List<Map<Set<String>, List<Double>>>> gloableCluster){
+		this.vertexes = vertexes;
+		this.docIds = docIds;
+		this.gloableCluster = gloableCluster;
 	}
 
 	/**
@@ -38,22 +60,10 @@ public class FindCore {
 	 */
 	public void termCut(){
 		while(true){
-//			Map<String, List<List<Map<Set<String>, List<Double>>>>> coreAndCluster = findCore(gloableCluster);
-//			for(Entry<String, List<List<Map<Set<String>, List<Double>>>>> entry:coreAndCluster.entrySet()){
-//				String coreTerm = entry.getKey();//得到关键单词
-//				List<List<Map<Set<String>, List<Double>>>> clusters = entry.getValue();//得到该单词分成的聚类的类别
-//				for(List<Map<Set<String>, List<Double>>> list:clusters){
-//					Random random = new Random();
-//					int label = random.nextInt(docIds.size());
-//					if(labels.add(""+label)){//重新分配类别标签
-//						Map<String, List<Map<Set<String>, List<Double>>>> newCluster = new HashMap<String, List<Map<Set<String>,List<Double>>>>();
-//						newCluster.put(""+label, list);
-//						gloableCluster = newCluster;
-//					}
-//				}
-//			}
+			System.out.println("run");
 			findCore(gloableCluster);
 			if(terminate()){
+//				System.out.println(true);
 				clusterNumber++;
 				break;
 			}
@@ -64,11 +74,11 @@ public class FindCore {
 	 * @return
 	 */
 	public boolean terminate(){
-		double originalRMCut = sumClaSimilarity(gloableCluster);
-		double denominator = calDenominator();
-		double difference = Math.abs(originalRMCut/denominator - globalRMCut);
-		return difference < Threshold? true: false;
-		
+		double difference = Math.abs(currentRMCut - originalRMCut);
+		if(difference != 0.0)
+			return difference > Threshold? true: false;
+		else
+			return true;
 	}
 	
 	/**cluster 参数的含义最外层的Map是做好标签的聚类(就是所说的键)，整个map的值是本聚类所包括的所有的特征向量，用一个list存放
@@ -77,78 +87,79 @@ public class FindCore {
 	 * @return
 	 */
 	public Map<String, List<List<Map<Set<String>, List<Double>>>>> findCore(Map<String, List<Map<Set<String>, List<Double>>>> cluster){
-		Map<String, List<Map<Set<String>, List<Double>>>> newCluster = new HashMap<String, List<Map<Set<String>,List<Double>>>>();
-		Map<String, List<Map<Set<String>, List<Double>>>> tmp = new HashMap<String, List<Map<Set<String>,List<Double>>>>();
-
-		String CoreTerm = null; 
+		String CoreTerm = null; //得到核心词汇
 		double MinRMcut = Double.MAX_VALUE;//?
+		originalRMCut = calRMCut(cluster);
+		
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		//Cb key---存放coreTerm,value---存放将一个聚类分裂之后的聚类信息
 		Map<String, List<List<Map<Set<String>, List<Double>>>>> Cb = null;
 		for(Entry<String,List<Map<Set<String>, List<Double>>>> entry: cluster.entrySet()){
-			String label = entry.getKey();
-			List<Map<Set<String>, List<Double>>> list = entry.getValue();
+			String label = entry.getKey();//得到某个聚类的类别
+			List<Map<Set<String>, List<Double>>> list = entry.getValue();//得到某个聚类
+		
+			if(list.size() == 1||list.size() == 0)
+				continue;
+			//得到本聚类中的所有单词
 			List<Set<String>> list2 = new ArrayList<Set<String>>();
 			for(Map<Set<String>, List<Double>> map: list){
-				//得到本聚类中的所有单词
 				for(Entry<Set<String>, List<Double>> entry2: map.entrySet()){
 					Set<String> words = entry2.getKey();
 					list2.add(words);
 				}
 			}
-			//得到本聚类的所有单词
+			
+			//单词去重
 			Set<String> terms = getSet(list2);
-			String label1 = labels.getLabel();
-			String label2 = labels.getLabel();
 			for(String word: terms){
+				//ck分裂之后形成的聚类，这些聚类并没有完成类别标签的选定
+				List<Map<Set<String>, List<Double>>> newCluster1 = new ArrayList<Map<Set<String>,List<Double>>>();//分配一个新的的聚类类别
+				List<Map<Set<String>, List<Double>>> newCluster2 = new ArrayList<Map<Set<String>,List<Double>>>();//分配一个新的的聚类类别
+				
+				//将ck聚类类别进行分裂操作
 				Cb = new HashMap<String, List<List<Map<Set<String>, List<Double>>>>>();
 				for(Map<Set<String>, List<Double>> map: list){
 					for(Entry<Set<String>, List<Double>> entry2: map.entrySet()){
 						Set<String> words = entry2.getKey();
 						//如果包含term单词，就将聚类c一分为二，其中包含该单词的为聚类一，否则为聚类二
 						if(words.contains(word)){
-							newCluster.put(label+"-1", list);
+							newCluster1.add(map);
 						}
 						else{
-							newCluster.put(label+"-0", list);
+							newCluster2.add(map);
 						}
 					}
 				}
-				//对已经一分为二的聚类进行RMcut标准计算
-				List<Map<Set<String>, List<Double>>> vertex1 = null;
-				List<Map<Set<String>, List<Double>>> vertex2 = null;
-				int flag = 0;
-				for(Entry<String, List<Map<Set<String>, List<Double>>>> entry1: newCluster.entrySet()){
-					if(flag == 0)
-					{
-						vertex1 = entry1.getValue();
-						flag ++;
-					}
-					else {
-						vertex2 = entry1.getValue();
-					}
-				}
-				//清空指定的键值对
-				tmp.put(label1, vertex1);
-				tmp.put(label2, vertex2);
-				double molecule = sumClaSimilarity(tmp);
-				double denominator = calDenominator();
-				double RMCut = molecule/denominator;
+				//ck分裂之后的聚类与原始聚类一块参与计算，重构原始的聚类
+				Map<String, List<Map<Set<String>, List<Double>>>> tempCluster = clone(cluster);
+				tempCluster.remove(label);
+				tempCluster.put(labels.getLabel(), newCluster1);
+				tempCluster.put(labels.getLabel(), newCluster2);
+				
+				//计算RMCut标准
+				double RMCut = calRMCut(tempCluster);
 				//构建返回的特征向量，因为将一个聚类一分为二，所以用链表存放分割之后的聚类信息
 				List<List<Map<Set<String>, List<Double>>>> returnVertex = new ArrayList<List<Map<Set<String>,List<Double>>>>();
 				if(RMCut < MinRMcut){
-					gloableCluster.remove(label);
-					gloableCluster.put(label1, vertex1);
-					gloableCluster.put(label2, vertex2);
+					
+					gloableCluster = tempCluster;
 					CoreTerm = word;
 					MinRMcut = RMCut;
-					globalRMCut = MinRMcut;
-					returnVertex.add(vertex1);
-					returnVertex.add(vertex2);
+					currentRMCut = MinRMcut;
+					returnVertex.add(newCluster1);
+					returnVertex.add(newCluster2);
 					Cb.put(word, returnVertex);
 				}
-				
 			}
 		}
+		System.out.println(originalRMCut);
+		System.out.println(currentRMCut);
+		System.out.println("globaleCluser =" + gloableCluster);
 		return Cb;
 	}
 	
@@ -163,25 +174,28 @@ public class FindCore {
 		}
 		return set;
 	}
-	
-	/**
+	/**计算公式标准是计算整个聚类的，而不是针对某一个聚类的
 	 * @param map 存放所有的特征向量
 	 * @return
 	 */
-	public double sumClaSimilarity(Map<String, List<Map<Set<String>, List<Double>>>> clusters){
-		double sum = 0;
+	public double calRMCut(Map<String, List<Map<Set<String>, List<Double>>>> clusters){
+		double returnSum = 0;
 		for(Entry<String, List<Map<Set<String>, List<Double>>>> entry:clusters.entrySet()){
-			String label = entry.getKey();
-			List<Map<Set<String>, List<Double>>> list1 = entry.getValue();
+			double sum = 0;
+			String label = entry.getKey();//得到某一个聚类的类别
+			List<Map<Set<String>, List<Double>>> list1 = entry.getValue();//得到聚类Ck
+			double denominator = calDenominator(list1);//计算ck之内的向量内积之和
 			for(Entry<String, List<Map<Set<String>, List<Double>>>> entry1:clusters.entrySet()){
-				String label1 = entry.getKey();
-				List<Map<Set<String>, List<Double>>> list2 = entry1.getValue();
+				String label1 = entry1.getKey();
+				List<Map<Set<String>, List<Double>>> list2 = entry1.getValue();//得到c-ck
 				if(!label.equals(label1)){
 					sum += calSimilarity(list1,list2);
 				}
 			}
+			if(denominator != 0.0)
+				returnSum += sum / denominator;
 		}
-		return sum;
+		return returnSum;
 	}
 	/**类别1与2之间的相似性判断
 	 * cut(Ck ,C − Ck )计算
@@ -220,10 +234,8 @@ public class FindCore {
 	 */
 	public double calMulti(List<Double> list,List<Double> another){
 		double sum = 0;
-		for(Double number1: list){
-			for(Double number2:another){
-				sum+= number1*number2;
-			}
+		for(int i =0; i< list.size(); i++){
+			sum += list.get(i) * another.get(i);
 		}
 		return sum;
 	}
@@ -231,19 +243,35 @@ public class FindCore {
 	/**计算分母公式Denominator
 	 * @return
 	 */
-	public double calDenominator(){
+	public double calDenominator(List<Map<Set<String>, List<Double>>> list1){
 		double sum = 0;
-		for(String id: docIds){
-			List<Double> vertex1 = vertexes.get(id);
-			for(String id1: docIds){
-				if(!id1.equals(id)){
-					List<Double> vertex2 = vertexes.get(id1);
-					for(int i =0;i<vertex1.size(); i++){
-						sum += vertex1.get(i)*vertex2.get(i);
+		for(Map<Set<String>, List<Double>> vertex:list1){
+			for(Entry<Set<String>, List<Double>> entry: vertex.entrySet()){
+				List<Double> vertext = entry.getValue();
+				for(Map<Set<String>, List<Double>> vertex1:list1){
+					for(Entry<Set<String>, List<Double>> entry1: vertex1.entrySet()){
+						List<Double> vertext1 = entry1.getValue();
+						for(int i =0; i<vertex.size(); i++){
+							//计算向量积
+							sum+=(vertext.get(i))*(vertext1.get(i));
+						}
 					}
 				}
 			}
 		}
-		return sum/2;
+		return sum;
 	}
+	
+	/**
+	 * @param map 对整个cluster进行深层复制，返回复制后的结果
+	 * @return
+	 */
+	public Map<String, List<Map<Set<String>, List<Double>>>> clone(Map<String, List<Map<Set<String>, List<Double>>>> map){
+		Map<String, List<Map<Set<String>, List<Double>>>> copyMap = new HashMap<String, List<Map<Set<String>,List<Double>>>>();
+		for(Entry<String, List<Map<Set<String>, List<Double>>>> entry:map.entrySet()){
+			copyMap.put(entry.getKey(), entry.getValue());
+		}
+		return copyMap;
+	}
+
 }

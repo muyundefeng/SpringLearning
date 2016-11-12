@@ -14,7 +14,11 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
+import org.codehaus.jackson.JsonParseException;
+import org.codehaus.jackson.map.JsonMappingException;
+import org.codehaus.jackson.map.ObjectMapper;
 
+import com.muyundefeng.termcut.assitance.LabelGenerator;
 import com.sun.corba.se.spi.ior.Identifiable;
 
 /**进行相关的文本预处理，将文本转化为空间向量
@@ -27,31 +31,68 @@ public class PreProcessText {
 	
 	private Set<String> terms = new HashSet<String>();
 	
-	private Map<String,String> idToContens = new HashMap<String,String>();
+	private Map<String,Set<String>> idToContens = new HashMap<String,Set<String>>();
 	
 	private Map<String, List<Double>> vertexes = new HashMap<String,List<Double>>();//存放文档特征向量
+	
+	private Map<String, List<Map<Set<String>, List<Double>>>> gloableCluster = null;//初始的聚类
 	
 	private Map<String, Map<String, Integer>> tfs = new HashMap<String,Map<String,Integer>>();
 	
 	private Map<String, Integer> dfs = new HashMap<String,Integer>();
 	
+	private LabelGenerator labels = null;
+	
+	public PreProcessText() {
+		// TODO Auto-generated constructor stub
+		labels = new LabelGenerator(Integer.MAX_VALUE);
+	}
 	/**
 	 * @param filePath 输入文件的路径
 	 * @return　文件内容
 	 * @throws IOException 
 	 */
-	public String getContent(String filePath) throws IOException{
+	public String getContent(String filePath) {
 		File file = new File(filePath);
-		BufferedReader reader = new BufferedReader(new FileReader(file));
-		String temp = null;
 		String content = "";
-		while ((temp = reader.readLine()) != null){
-			content = content + temp +" ";
+		try{
+			BufferedReader reader = new BufferedReader(new FileReader(file));
+			String temp = null;
+			while ((temp = reader.readLine()) != null){
+				content = content + temp +" ";
+			}
+			reader.close();
 		}
-		reader.close();
+		catch(Exception e){
+			e.printStackTrace();
+		}
 		return content;
 	}
 	
+	/**得到停用词列表
+	 * @param filePath
+	 * @return
+	 */
+	public List<String> getStopWrods() {
+		List<String> stopWord = new ArrayList<String>();
+		File file = new File("/home/lisheng/SearchRedis/TermCut/src/main/resources/stopWords.json");
+		String content = "";
+		try{
+			BufferedReader reader = new BufferedReader(new FileReader(file));
+			String temp = null;
+			while ((temp = reader.readLine()) != null){
+				content = content + temp +" ";
+			}
+			reader.close();
+		}
+		
+		catch(Exception e){
+			e.printStackTrace();
+		}
+		String stopWords[] = content.split(",");
+		stopWord = Arrays.asList(stopWords);
+		return stopWord;
+	}
 	/**统计词频
 	 * @param text 文档的内容
 	 * @param docId　文档的标识符
@@ -62,16 +103,27 @@ public class PreProcessText {
 		String afterProcessStop = afterProcessNumber.replaceAll( "\\p{Punct}", "" );
 		
 		String temp[] = StringUtils.split(afterProcessStop, " ");
-		List<String> words = Arrays.asList(temp);
+		List<String> words = new ArrayList<String>();
+		for(String word:temp){
+			words.add(word);
+		}
+		words.removeAll(getStopWrods());
+		
 		terms.addAll(words);
-		idToContens.put(docId, afterProcessStop);
+		Set<String> terms = new HashSet<String>(words);
+		idToContens.put(docId, terms);
 	}
 	
 	public void TFStastic(String text,String docId){
 		String afterProcessNumber = text.replaceAll("\\d", "");
 		String afterProcessStop = afterProcessNumber.replaceAll( "\\p{Punct}", " " );
 		String temp[] = StringUtils.split(afterProcessStop, " ");
-		List<String> words = Arrays.asList(temp);
+		List<String> words = new ArrayList<String>();
+		for(String word:temp){
+			words.add(word);
+		}
+		words.removeAll(getStopWrods());
+		
 		Map<String, Integer> termToTf = new HashMap<String, Integer>();
 		for(String word:words){
 			int TF = StringUtils.countMatches(afterProcessStop, word);
@@ -121,7 +173,7 @@ public class PreProcessText {
 			}
 			vertexes.put(doc, vertex);
 		}	
-		System.out.println(vertexes.toString());
+//		System.out.println(vertexes.toString());
 	}
 //	
 	/**tf-idf计算公式
@@ -134,27 +186,54 @@ public class PreProcessText {
 		return tf * (Math.log((docs.size()/df)));
 	}
 	
-	/**测试函数
-	 * @param args
-	 * @throws IOException 
+	/**
+	 * 构建初始化的聚类
 	 */
-	public static void main(String[] args) throws IOException {
-//		System.out.println(1 * (Math.log((2))));
-		PreProcessText handle = new PreProcessText();
-		String filePaths[] = {"./src/main/resources/a.txt","./src/main/resources/b.txt","./src/main/resources/c.txt","./src/main/resources/d.txt"};
-		for(String path:filePaths)
-		{
-			String content = handle.getContent(path);
-			handle.handleText(content, path);
+	public void initCluser(){
+		String label = labels.getLabel();
+		List<Map<Set<String>, List<Double>>> list = new ArrayList<Map<Set<String>,List<Double>>>();
+		for(String docId :docs){
+			Set<String> words = idToContens.get(docId);
+			List<Double> vertex = vertexes.get(docId);
+			Map<Set<String>, List<Double>> map = new HashMap<Set<String>, List<Double>>();
+			map.put(words, vertex);
+			list.add(map);
 		}
-		for(String path:filePaths)
-		{
-			String content = handle.getContent(path);
-			handle.TFStastic(content, path);
-		}
-		System.out.println(handle.tfs.toString());
-		handle.DFStastic();
-		System.out.println(handle.dfs.toString());
-		handle.buildVertex();
+		gloableCluster = new HashMap<String, List<Map<Set<String>,List<Double>>>>();
+		gloableCluster.put(label, list);
+//		System.out.println(gloableCluster);
+	}
+	
+	//获得私有变量的方法
+	public List<String> getDocs() {
+		return docs;
+	}
+	
+	public Set<String> getTerms() {
+		return terms;
+	}
+	
+	public Map<String, Set<String>> getIdToContens() {
+		return idToContens;
+	}
+
+	public Map<String, List<Double>> getVertexes() {
+		return vertexes;
+	}
+	
+	public Map<String, List<Map<Set<String>, List<Double>>>> getGloableCluster() {
+		return gloableCluster;
+	}
+
+	public Map<String, Map<String, Integer>> getTfs() {
+		return tfs;
+	}
+	
+	public Map<String, Integer> getDfs() {
+		return dfs;
+	}
+	
+	public LabelGenerator getLabels() {
+		return labels;
 	}
 }

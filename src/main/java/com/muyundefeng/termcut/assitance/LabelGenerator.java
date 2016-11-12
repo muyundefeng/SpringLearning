@@ -20,13 +20,20 @@ public class LabelGenerator {
 	}
 	
 	public String getLabel(){
+		String label = null;
 		Random random = new Random();
 		int ad = random.nextInt(bound);
 		while(true)
 		{
 			if(set.add(ad + "")){
-				return ad + "";
+				label =  ad + "";
+				break;
 			}
 		}
+		return label;
+	}
+	
+	public static void main(String[] args) {
+		
 	}
 }
