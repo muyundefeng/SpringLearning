@@ -10,11 +10,11 @@ import com.muyundfeng.termcut.textPreprocess.PreProcessText;
 public class test {
 
 	public static void main(String[] args) {
-		String Threshold = 4.5 + "";
+		String Threshold = 40+"";
 		PreProcessText handle = new PreProcessText();
 		String filePaths[] = {"./src/main/resources/a.txt","./src/main/resources/a1.txt","./src/main/resources/a2.txt",
-				"./src/main/resources/a3.txt","./src/main/resources/a4.txt","./src/main/resources/b.txt","./src/main/resources/b.txt",
-				"./src/main/resources/e.txt","./src/main/resources/f.txt","./src/main/resources/f.txt"};
+				"./src/main/resources/a3.txt","./src/main/resources/a4.txt","./src/main/resources/b.txt","./src/main/resources/c.txt"
+				,"./src/main/resources/d.txt","./src/main/resources/e.txt","./src/main/resources/f.txt","./src/main/resources/g.txt","./src/main/resources/h.txt"};
 		for(String path:filePaths)
 		{
 			String content = handle.getContent("/home/lisheng/SearchRedis/TermCut"+path.substring(1));

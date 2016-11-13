@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import com.muyundefeng.termcut.assitance.LabelGenerator;
+import com.sun.xml.internal.bind.v2.model.core.ID;
 
 import java.util.Set;
 
@@ -135,6 +136,8 @@ public class FindCore {
 						}
 					}
 				}
+				if(newCluster1.size() == 0||newCluster2.size() == 0)
+					continue;
 				//ck分裂之后的聚类与原始聚类一块参与计算，重构原始的聚类
 				Map<String, List<Map<Set<String>, List<Double>>>> tempCluster = clone(cluster);
 				tempCluster.remove(label);

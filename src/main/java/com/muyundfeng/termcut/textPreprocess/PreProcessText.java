@@ -100,7 +100,7 @@ public class PreProcessText {
 	public void handleText(String text,String docId){
 		docs.add(docId);
 		String afterProcessNumber = text.replaceAll("\\d", "");
-		String afterProcessStop = afterProcessNumber.replaceAll( "\\p{Punct}", "" );
+		String afterProcessStop = afterProcessNumber.replaceAll( "\\p{Punct}", " " );
 		
 		String temp[] = StringUtils.split(afterProcessStop, " ");
 		List<String> words = new ArrayList<String>();
@@ -167,13 +167,14 @@ public class PreProcessText {
 					int tf = tfs.get(doc).get(word);
 					int df = dfs.get(word);
 					double tf_idf = getWeight(df, tf);
-					vertex.add(index, tf_idf);
+					vertex.add(index, (double)df);
+//					vertex.add(index, tf_idf);
 				}
 				index ++;
 			}
 			vertexes.put(doc, vertex);
 		}	
-//		System.out.println(vertexes.toString());
+		System.out.println("vertexes="+vertexes.toString());
 	}
 //	
 	/**tf-idf计算公式
