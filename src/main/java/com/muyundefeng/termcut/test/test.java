@@ -10,7 +10,7 @@ import com.muyundfeng.termcut.textPreprocess.PreProcessText;
 public class test {
 
 	public static void main(String[] args) {
-		String Threshold = 40+"";
+		String Threshold = 100+"";
 		PreProcessText handle = new PreProcessText();
 		String filePaths[] = {"./src/main/resources/a.txt","./src/main/resources/a1.txt","./src/main/resources/a2.txt",
 				"./src/main/resources/a3.txt","./src/main/resources/a4.txt","./src/main/resources/b.txt","./src/main/resources/c.txt"

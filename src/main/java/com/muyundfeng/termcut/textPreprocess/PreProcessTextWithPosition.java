@@ -25,7 +25,7 @@ import com.sun.corba.se.spi.ior.Identifiable;
  * @author lisheng
  *
  */
-public class PreProcessText {
+public class PreProcessTextWithPosition {
 
 	private List<String> docs = new ArrayList<String>();//存放文档的id
 	
@@ -43,9 +43,7 @@ public class PreProcessText {
 	
 	private LabelGenerator labels = null;
 	
-	private Map<String, Map<String, Integer>> termToPosition = new HashMap<String, Map<String,Integer>>();
-	
-	public PreProcessText() {
+	public PreProcessTextWithPosition() {
 		// TODO Auto-generated constructor stub
 		labels = new LabelGenerator(Integer.MAX_VALUE);
 	}
@@ -103,18 +101,14 @@ public class PreProcessText {
 		docs.add(docId);
 		String afterProcessNumber = text.replaceAll("\\d", "");
 		String afterProcessStop = afterProcessNumber.replaceAll( "\\p{Punct}", " " );
+		
 		String temp[] = StringUtils.split(afterProcessStop, " ");
 		List<String> words = new ArrayList<String>();
-		Map<String, Integer> map = new HashMap<String,Integer>();
-		int position = 0;
 		for(String word:temp){
-			position ++;
 			words.add(word);
-//			Map<String,Integer> map = new HashMap<String, Integer>();
-			map.put(word, position);
-//			list.add(map);
 		}
-		termToPosition.put(docId, map);
+		words.removeAll(getStopWrods());
+		
 		terms.addAll(words);
 		Set<String> terms = new HashSet<String>(words);
 		idToContens.put(docId, terms);
@@ -125,7 +119,6 @@ public class PreProcessText {
 		String afterProcessStop = afterProcessNumber.replaceAll( "\\p{Punct}", " " );
 		String temp[] = StringUtils.split(afterProcessStop, " ");
 		List<String> words = new ArrayList<String>();
-		
 		for(String word:temp){
 			words.add(word);
 		}
@@ -137,7 +130,6 @@ public class PreProcessText {
 			termToTf.put(word, TF);
 		}
 		tfs.put(docId, termToTf);
-		
 	}
 	
 	/**
@@ -165,18 +157,17 @@ public class PreProcessText {
 		for(String doc:docs)
 		{
 			List<Double> vertex = new ArrayList<Double>();
-			Map<String, Integer> position = termToPosition.get(doc); 
 			int index = 0;
 			for(String word:terms){
 				//先要得到词频
 				if(!tfs.get(doc).containsKey(word))
 					vertex.add(index, (double)0);
 				else{
-					int positiosn = position.get(word);
 					int tf = tfs.get(doc).get(word);
 					int df = dfs.get(word);
-//					double tf_idf = getWeight(df, tf);
-					vertex.add(index, (double)df/positiosn);
+					double tf_idf = getWeight(df, tf);
+					vertex.add(index, (double)df);
+//					vertex.add(index, tf_idf);
 				}
 				index ++;
 			}
@@ -210,7 +201,6 @@ public class PreProcessText {
 		}
 		gloableCluster = new HashMap<String, List<Map<Set<String>,List<Double>>>>();
 		gloableCluster.put(label, list);
-//		System.out.println(gloableCluster);
 	}
 	
 	//获得私有变量的方法

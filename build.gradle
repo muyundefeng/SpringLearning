@@ -21,6 +21,9 @@ dependencies {
 	compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.0'
 	// https://mvnrepository.com/artifact/org.codehaus.jackson/jackson-mapper-asl
 	compile group: 'org.codehaus.jackson', name: 'jackson-mapper-asl', version: '1.9.8'
+	// https://mvnrepository.com/artifact/net.sf.jtidy/jtidy
+	compile group: 'net.sf.jtidy', name: 'jtidy', version: 'r938'
+	
 	
     
 }
