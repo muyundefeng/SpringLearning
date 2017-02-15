@@ -1,6 +1,8 @@
 import org.apache.commons.dbcp.BasicDataSource
 import org.mybatis.spring.SqlSessionFactoryBean
-import org.mybatis.spring.mapper.MapperScannerConfigurer
+//import org.mybatis.spring.mapper.MapperScannerConfigurer
+import org.mybatis.spring.mapper.MapperFactoryBean
+
 beans{
     xmlns([ctx: 'http://www.springframework.org/schema/context', mvc: 'http://www.springframework.org/schema/mvc'])
     ctx.'component-scan'('base-package':'com.muyundefeng.spring.controller')
@@ -19,8 +21,14 @@ beans{
     sqlSessionFactoryBean(SqlSessionFactoryBean) {
         dataSource = basicDataSource
     }
-    mapperScannerConfigurer(MapperScannerConfigurer) {
-        basePackage = "com.muyundefeng.spring.mapper"
+//    mapperScannerConfigurer(MapperScannerConfigurer) {
+//        basePackage = "com.muyundefeng.spring.mapper"
+//        sqlSessionFactory = sqlSessionFactoryBean
+//    }
+    //可以使用mapperFactoryBean来扫描相关了类,每一个mapper借口对应于一类sqlSessionFactoryBean
+
+    mapperFactoryBean(MapperFactoryBean){
+        mapperInterface = "com.muyundefeng.spring.mapper.StudentsMapper"
         sqlSessionFactory = sqlSessionFactoryBean
     }
 
