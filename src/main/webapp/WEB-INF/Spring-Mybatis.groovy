@@ -31,5 +31,9 @@ beans{
         mapperInterface = "com.muyundefeng.spring.mapper.StudentMapper"
         sqlSessionFactory = sqlSessionFactoryBean
     }
+    mapperFactoryBean(MapperFactoryBean){
+        mapperInterface = "com.muyundefeng.spring.mapper.PersoninfoMapper"
+        sqlSessionFactory = sqlSessionFactoryBean
+    }
 
 }

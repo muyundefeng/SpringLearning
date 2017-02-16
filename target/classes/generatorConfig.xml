@@ -29,6 +29,8 @@
         <javaClientGenerator targetPackage="com.muyundefeng.spring.mapper" targetProject="src/main/java" type="XMLMAPPER">
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
+        <table tableName="personinfo" enableUpdateByExample = "true" enableCountByExample="false" enableDeleteByExample="true">
+        </table>
         <table tableName="student" enableUpdateByExample = "true" enableCountByExample="false" enableDeleteByExample="true">
         </table>
     </context>

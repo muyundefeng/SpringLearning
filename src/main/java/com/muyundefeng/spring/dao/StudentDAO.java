@@ -9,5 +9,11 @@ import java.util.List;
  */
 public interface StudentDAO {
 
-  List<Student> getStudents();
+  List<Student> selectAllStudents();
+
+  void insetStudent(Student student);
+
+  Student selectStudentByPrimaryKey(String id);
+
+
 }

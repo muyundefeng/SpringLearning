@@ -1,8 +1,12 @@
 com/muyundefeng/spring/dao/impl/StudentDAOImpl.class
-com/muyundefeng/spring/service/StudentService.class
-com/muyundefeng/spring/dao/StudentDAO.class
-com/muyundefeng/spring/init1/SpringApplicationInitializer.class
+com/muyundefeng/spring/dao/impl/PersonDAOImpl.class
+com/muyundefeng/spring/mapper/PersoninfoMapper.class
 com/muyundefeng/spring/controller/TestController.class
-com/muyundefeng/spring/service/impl/StudentServiceImpl.class
+com/muyundefeng/spring/service/impl/FetchPersonAllInoImpl.class
 com/muyundefeng/spring/mapper/StudentMapper.class
 com/muyundefeng/spring/entity/Student.class
+com/muyundefeng/spring/dao/StudentDAO.class
+com/muyundefeng/spring/init1/SpringApplicationInitializer.class
+com/muyundefeng/spring/entity/Personinfo.class
+com/muyundefeng/spring/dao/PersonDAO.class
+com/muyundefeng/spring/service/FetchPersonAllInfo.class

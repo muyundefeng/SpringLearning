@@ -1,17 +1,19 @@
 package com.muyundefeng.spring.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.muyundefeng.spring.entity.Personinfo;
 import com.muyundefeng.spring.entity.Student;
-import com.muyundefeng.spring.service.StudentService;
+import com.muyundefeng.spring.service.FetchPersonAllInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
+import java.io.IOException;
+import java.util.Map;
 
 /**
  * Created by lisheng on 17-2-14.
@@ -20,20 +22,61 @@ import java.util.List;
 @RequestMapping(value = "/")
 public class TestController {
     @Autowired
-    StudentService service;
+    FetchPersonAllInfo service;
 
-    @PostMapping(value = "/student")
+    @RequestMapping(value = "/student")
     @ResponseBody
     public String getJson(HttpServletRequest servlet) {
-        String name = servlet.getParameter("name");
-        List<Student> students = service.getStudent(name);
-        ObjectMapper mapper = new ObjectMapper();
-        String json = null;
+        String id = servlet.getParameter("id");
+        String info = service.info(id);
+        return info;
+    }
+
+    /**
+     * @param body {
+     *             "id":"1112332",
+     *             "school_address":"Haidian District ,Beijing",
+     *             "age":"30",
+     *             "name":"tom",
+     *             "score":"98",
+     *             "home_address":"New York",
+     *             "family_number":"6",
+     *             "language":"English,Chinese"
+     *             }
+     * @return
+     */
+    @PostMapping(value = "/inserEntity", produces = "application/json")
+    @ResponseBody
+    public String addEntity(@RequestBody String body) {
+        System.out.println(body);
+        ObjectMapper objectMapper = new ObjectMapper();
+        Map<String, String> toMap = null;
         try {
-            json = mapper.writeValueAsString(students);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
+            toMap = objectMapper.readValue(body, Map.class);
+        } catch (IOException e) {
+            return "parse json failed";
         }
-        return json == null ? "false response" : json;
+
+        String id = toMap.get("id");
+        String schoolAddress = toMap.get("school_address");
+        String age = toMap.get("age");
+        String name = toMap.get("name");
+        String score = toMap.get("score");
+        String homeAddress = toMap.get("home_address");
+        String familyNumber = toMap.get("family_number");
+        String language = toMap.get("language");
+        Student student = new Student();
+        student.setName(name);
+        student.setScore(score);
+        student.setId(id);
+        student.setAge(age);
+        student.setAddress(schoolAddress);
+        Personinfo person = new Personinfo();
+        person.setId(id);
+        person.setHomeAddress(homeAddress);
+        person.setFamilyNumber(familyNumber);
+        person.setLanguage(language);
+        service.insertEntity(student, person);
+        return "success";
     }
 }

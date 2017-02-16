@@ -14,11 +14,20 @@ import java.util.List;
 @Repository
 public class StudentDAOImpl implements StudentDAO {
 
-    @Autowired
     StudentMapper mapper;
 
     @Override
-    public List<Student> getStudents() {
+    public List<Student> selectAllStudents() {
         return mapper.selectAll();
+    }
+
+    @Override
+    public void insetStudent(Student student) {
+        mapper.insert(student);
+    }
+
+    @Override
+    public Student selectStudentByPrimaryKey(String id) {
+        return mapper.selectByPrimaryKey(id);
     }
 }
