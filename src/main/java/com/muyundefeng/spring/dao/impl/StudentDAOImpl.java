@@ -14,6 +14,7 @@ import java.util.List;
 @Repository
 public class StudentDAOImpl implements StudentDAO {
 
+    @Autowired
     StudentMapper mapper;
 
     @Override
@@ -28,6 +29,7 @@ public class StudentDAOImpl implements StudentDAO {
 
     @Override
     public Student selectStudentByPrimaryKey(String id) {
+        System.out.println("student id:" + id);
         return mapper.selectByPrimaryKey(id);
     }
 }

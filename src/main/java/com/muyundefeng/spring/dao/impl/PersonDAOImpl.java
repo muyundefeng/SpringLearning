@@ -14,6 +14,7 @@ import java.util.List;
 @Repository
 public class PersonDAOImpl implements PersonDAO {
 
+    @Autowired
     PersoninfoMapper mapper1;
 
     @Override

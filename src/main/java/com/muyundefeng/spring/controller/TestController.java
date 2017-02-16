@@ -17,10 +17,12 @@ import java.util.Map;
 
 /**
  * Created by lisheng on 17-2-14.
+ * @email 2633604335@qq.com
  */
 @Controller
 @RequestMapping(value = "/")
 public class TestController {
+
     @Autowired
     FetchPersonAllInfo service;
 
@@ -35,7 +37,7 @@ public class TestController {
     /**
      * @param body {
      *             "id":"1112332",
-     *             "school_address":"Haidian District ,Beijing",
+     *             "school_address":"Bupt Haidian District ,Beijing",
      *             "age":"30",
      *             "name":"tom",
      *             "score":"98",
@@ -56,7 +58,6 @@ public class TestController {
         } catch (IOException e) {
             return "parse json failed";
         }
-
         String id = toMap.get("id");
         String schoolAddress = toMap.get("school_address");
         String age = toMap.get("age");
