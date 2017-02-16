@@ -6,3 +6,11 @@
 `score` varchar(255) NOT NULL) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 2.在终端中运行gradle build(gradle 安装教程请自行google或者百度)
 3.gradle jettyRun
+
+Spring mvc常见的结构如下:
+view层：结合control层，显示前台页面(一般包括静态,动态页面)。
+control层：业务模块流程控制，调用service层接口(该contoller类注解为@controller)。
+service层：业务操作实现类，调用dao层接口。(对数据库访问层的封装,实现类注解为@Service,接口不添加任何注解)
+dao层：数据业务处理，持久化操作.(对数据库进行访问,是持久层的相关操作,在使用mybatis的情况下,使用mapper相关访问,该类注解为@Repository,持久类)
+model层：pojo，OR maping，持久层(mpper类以及相关的实体类,不添加任何注解,但是保留无参构造器) 
+请求的流程图参考:http://blog.csdn.net/zdwzzu2006/article/details/6086829 
