@@ -14,3 +14,5 @@ service层：业务操作实现类，调用dao层接口。(对数据库访问层
 dao层：数据业务处理，持久化操作.(对数据库进行访问,是持久层的相关操作,在使用mybatis的情况下,使用mapper相关访问,该类注解为@Repository,持久类)
 model层：pojo，OR maping，持久层(mpper类以及相关的实体类,不添加任何注解,但是保留无参构造器) 
 请求的流程图参考:http://blog.csdn.net/zdwzzu2006/article/details/6086829 
+
+dao层与service层之间的区别,一般来说:DAO一定是和数据库的每张表一一对应，而service则不是,service层可能设计多个dao的操作
