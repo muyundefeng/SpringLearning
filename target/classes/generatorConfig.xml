@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <context id="Mysql" targetRuntime="MyBatis3Simple" defaultModelType="flat">
+        <!--<commentGenerator>-->
+            <!--<property name="suppressAllComments" value="true"></property>-->
+            <!--<property name="suppressDate" value="true"></property>-->
+            <!--<property name="javaFileEncoding" value="utf-8"/>-->
+        <!--</commentGenerator>-->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://localhost:3306/movieInfo"
+                        userId="root"
+                        password="root">
+        </jdbcConnection>
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+        <javaModelGenerator targetPackage="com.muyundefeng.spring.entity" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"></property>
+            <property name="trimStrings" value="true"></property>
+        </javaModelGenerator>
+        <!--生成xml文件映射文件-->
+        <sqlMapGenerator targetPackage="com.muyundefeng.spring.mapper" targetProject="src/main/resources">
+            <property name="enableSubPackages" value="true"></property>
+        </sqlMapGenerator>
+        <!--生成mapper-->
+        <javaClientGenerator targetPackage="com.muyundefeng.spring.mapper" targetProject="src/main/java" type="XMLMAPPER">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+        <table tableName="student" enableUpdateByExample = "true" enableCountByExample="false" enableDeleteByExample="true">
+        </table>
+    </context>
+</generatorConfiguration>

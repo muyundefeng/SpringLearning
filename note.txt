@@ -1,0 +1,51 @@
+使用mybatis自动生成实体类文件,mpper文件,以及之间的xml映射文件,其中需要在pom文件中设置相关的插件,pom文件中的插件配置
+如下:
+<plugin>
+                <groupId>org.mybatis.generator</groupId>
+                <artifactId>mybatis-generator-maven-plugin</artifactId>
+                <version>1.3.2</version>
+                <configuration>
+                    //需要指明配置自动生成的配置文件的路径
+                    <configurationFile>src/main/resources/generatorConfig.xml</configurationFile>
+                    <verbose>true</verbose>
+                    <overwrite>true</overwrite>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>Generate MyBatis Artifacts</id>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.mybatis.generator</groupId>
+                        <artifactId>mybatis-generator-core</artifactId>
+                        <version>1.3.2</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>mysql</groupId>
+                        <artifactId>mysql-connector-java</artifactId>
+                        <version>${mysql.connector.version}</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+配置文件的配置参考:http://mbg.cndocs.tk/index.html
+        <javaModelGenerator targetPackage="com.muyundefeng.spring.entity" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"></property>
+            <property name="trimStrings" value="true"></property>
+        </javaModelGenerator>
+        targetPackage生成实体类的包
+
+        <sqlMapGenerator targetPackage="com.muyundefeng.spring.mapper" targetProject="src/main/resources">
+            <property name="enableSubPackages" value="true"></property>
+        </sqlMapGenerator>
+        targetPackage生成映射xml的文件路径
+
+        <javaClientGenerator targetPackage="com.muyundefeng.spring.mapper" targetProject="src/main/java" type="XMLMAPPER">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+        targetPackage生成,mapper类的存放包名,type包括注解以及xml文件两种映射方式
+
+        还必须指明table元素
