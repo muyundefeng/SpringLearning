@@ -1,7 +1,7 @@
 package com.muyundefeng.spring.service.impl;
 
+import com.muyundefeng.spring.dao.StudentDAO;
 import com.muyundefeng.spring.entity.Student;
-import com.muyundefeng.spring.mapper.StudentMapper;
 import com.muyundefeng.spring.service.StudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,17 +15,10 @@ import java.util.List;
 public class StudentServiceImpl implements StudentService {
 
     @Autowired
-    StudentMapper mapper;
+    StudentDAO dao;
 
     public List<Student> getStudent(String name) {
-        return mapper.selectAll();
+        return dao.getStudents();
     }
 
-    public void addStudent(String name, String age, String score) {
-        Student student = new Student();
-        student.setName(name);
-        student.setAge(age);
-        student.setScore(score);
-        mapper.insert(student);
-    }
 }

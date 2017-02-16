@@ -10,8 +10,6 @@ import java.util.List;
 public interface StudentService {
 
     public List<Student> getStudent(String name);
-
-    public void addStudent(String name, String age, String score);
-
+//    public void addStudent(String name, String age, String score);
 
 }

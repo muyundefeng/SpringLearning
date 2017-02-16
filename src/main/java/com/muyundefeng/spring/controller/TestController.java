@@ -36,15 +36,4 @@ public class TestController {
         }
         return json == null ? "false response" : json;
     }
-
-    @PostMapping(value = "/insertStudent")
-    @ResponseBody
-    public String insertStudent(HttpServletRequest servlet) {
-        String name = servlet.getParameter("name");
-        String age = servlet.getParameter("age");
-        String score = servlet.getParameter("score");
-
-        service.addStudent(name, age, score);
-        return "sucess";
-    }
 }

@@ -1,4 +1,6 @@
+com/muyundefeng/spring/dao/impl/StudentDAOImpl.class
 com/muyundefeng/spring/service/StudentService.class
+com/muyundefeng/spring/dao/StudentDAO.class
 com/muyundefeng/spring/init1/SpringApplicationInitializer.class
 com/muyundefeng/spring/controller/TestController.class
 com/muyundefeng/spring/service/impl/StudentServiceImpl.class
