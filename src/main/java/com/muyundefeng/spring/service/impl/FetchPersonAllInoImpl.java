@@ -8,6 +8,8 @@ import com.muyundefeng.spring.service.FetchPersonAllInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 
 /**
  * Created by lisheng on 17-2-14.
@@ -34,5 +36,10 @@ public class FetchPersonAllInoImpl implements FetchPersonAllInfo {
     public void insertEntity(Student stu, Personinfo person) {
         studentDAO.insetStudent(stu);
         personDAO.insetPerson(person);
+    }
+
+    @Override
+    public List<Student> getAllStudents() {
+        return studentDAO.selectAllStudents();
     }
 }

@@ -5,6 +5,7 @@ import com.muyundefeng.spring.entity.Personinfo;
 import com.muyundefeng.spring.entity.Student;
 import com.muyundefeng.spring.service.FetchPersonAllInfo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,11 +14,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 /**
  * Created by lisheng on 17-2-14.
- * @email 2633604335@qq.com
+ *
+ * @email 2533604335@qq.com
  */
 @Controller
 @RequestMapping(value = "/")
@@ -79,5 +82,19 @@ public class TestController {
         person.setLanguage(language);
         service.insertEntity(student, person);
         return "success";
+    }
+
+    @RequestMapping(value = "/getAllStudents")
+    @ResponseBody
+    public String getAll() {
+        List<Student> studentList = service.getAllStudents();
+        ObjectMapper objectMapper = new ObjectMapper();
+        String json = null;
+        try {
+            json = objectMapper.writeValueAsString(studentList);
+        } catch (IOException e) {
+            return "parse json failed";
+        }
+        return json == null?"{\"result\":\"failed\"}":json;
     }
 }

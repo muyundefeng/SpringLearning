@@ -12,33 +12,14 @@ import java.util.EnumSet;
  */
 public class SpringApplicationInitializer implements WebApplicationInitializer {
 
-
     public void onStartup(ServletContext servletContext) throws ServletException {
         GroovyWebApplicationContext applicationContext = new GroovyWebApplicationContext();
         applicationContext.setConfigLocation("/WEB-INF/Spring-Mybatis.groovy");
-
         DispatcherServlet servlet = new DispatcherServlet(applicationContext);
         ServletRegistration.Dynamic dispatcher = servletContext.addServlet(
                 "springDispatcher", servlet);
         dispatcher.setLoadOnStartup(1);
         dispatcher.addMapping("/");
-
-//        String filterName = DEFAULT_FILTER_NAME;
-//        DelegatingFilterProxy springSecurityFilterChain = new DelegatingFilterProxy(
-//                filterName);
-//        springSecurityFilterChain.setContextAttribute(servlet.getContextAttribute());
-//        registerFilter(servletContext, true, filterName, springSecurityFilterChain);
-//
-//        CharacterEncodingFilter characterEncodingFilter = new CharacterEncodingFilter("characterEncodingFilter");
-//        characterEncodingFilter.setEncoding("UTF-8");
-//        characterEncodingFilter.setForceEncoding(true);
-//        characterEncodingFilter.setServletContext(servletContext);
-//        servletContext.addFilter("characterEncodingFilter", characterEncodingFilter)
-//                .addMappingForUrlPatterns(null, true, "/*");
-//
-//        HttpSessionListener listener = new SingleSignOutHttpSessionListener();
-//        servletContext.addListener(listener);
-
         System.setProperty("servletContextRealPath", servletContext.getRealPath(""));
     }
 

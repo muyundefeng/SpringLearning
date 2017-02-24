@@ -30,10 +30,7 @@
                              type="XMLMAPPER">
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
-        <table tableName="personinfo">
-            <property name="useActualColumnNames" value="false"/>
-        </table>
-        <table tableName="student">
+        <table tableName="article">
             <property name="useActualColumnNames" value="false"/>
         </table>
     </context>
