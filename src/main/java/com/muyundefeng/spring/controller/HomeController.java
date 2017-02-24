@@ -5,6 +5,7 @@ package com.muyundefeng.spring.controller;
  */
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.muyundefeng.spring.entity.Article;
 import com.muyundefeng.spring.service.ArticleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,6 +24,14 @@ public class HomeController {
     @Autowired
     ArticleService articleService;
 
+    /**
+     * http://host:port/getArticleList?perCount={perCount}&pageIndex={pageIndex}
+     *
+     * @param response
+     * @param perCount
+     * @param pageIndex
+     * @return
+     */
     @SuppressWarnings("Since15")
     @RequestMapping("/getArticleList")
     @ResponseBody
@@ -35,6 +44,16 @@ public class HomeController {
         return articleService.getAllArticle(perCount, pageIndex);
     }
 
+    /**
+     * url:http://host:port/addArticle
+     *
+     * @param body {
+     *             "title":"旋转字符串",
+     *             "content":"题目描述给定一个字符串，要求把字符串前面的若干个字符移动到字符串的尾部，如把字符串“abcdef”前面的2个字符'a'和'b'移动到字符串的尾部，使得原字符串变成字符串“cdefab”。请写一个函数完成此功能，要求对长度的字符串操作的时间复杂度为 O(n)，空间复杂度为 O(1)。分析与解法",
+     *             "origina":"《编程之法》"
+     *             }
+     * @return
+     */
     @RequestMapping(value = "/addArticle", produces = "application/json")
     @ResponseBody
     public String addArticle(@RequestBody String body) {
@@ -54,4 +73,22 @@ public class HomeController {
         return msg;
     }
 
+    /**
+     * http://host:port/readArticle?title={title}&origina={origina}
+     * @param title
+     * @param orgina
+     * @param response
+     * @return
+     */
+    @RequestMapping(value = "/readArticle")
+    @ResponseBody
+    public String readArticle(@RequestParam("title") String title, @RequestParam("origina") String orgina, HttpServletResponse response) {
+        response.setContentType("text/html;charset=utf-8");
+        if (title == null || title.length() == 0
+                || orgina == null || orgina.length() == 0) {
+            return "error page Index";
+        }
+        Article article = articleService.getArticleById(title, orgina);
+        return article.getArticleContent();
+    }
 }
