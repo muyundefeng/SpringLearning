@@ -84,6 +84,7 @@ ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 |移动开发|5|
 2.删除博文，**请求方式：GET**
 请求url地址：```http://host:port/deleteBlog?blogId={blogId}```
+
 3.获得博文列表，**请求方式：GET**
 请求地址：```http://host:port/getBlogs?cateId={cateId}```
 

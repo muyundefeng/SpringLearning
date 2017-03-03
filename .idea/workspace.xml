@@ -2,36 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e3d77cd1-5284-4abb-9579-ebb510b8919e" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__javax_servlet_jstl_1_2.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/README.md" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/muyundefeng/spring/dao/BlogDAO.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/muyundefeng/spring/dao/CommentDAO.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/muyundefeng/spring/dao/impl/BlogDAOImpl.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/muyundefeng/spring/dao/impl/CommentDAOImpl.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/muyundefeng/spring/service/BlogService.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/muyundefeng/spring/service/impl/BlogServiceImpl.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/muyundefeng/spring/test/Main.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/data/a.txt" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/muyundefeng/spring/controller/TestController.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/muyundefeng/spring/dao/ArticleDAO.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/muyundefeng/spring/dao/PersonDAO.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/muyundefeng/spring/dao/StudentDAO.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/muyundefeng/spring/dao/impl/ArticleDAOImpl.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/muyundefeng/spring/dao/impl/PersonDAOImpl.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/muyundefeng/spring/dao/impl/StudentDAOImpl.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/muyundefeng/spring/entity/Article.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/muyundefeng/spring/entity/Personinfo.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/muyundefeng/spring/entity/Student.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/muyundefeng/spring/mapper/ArticleMapper.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/muyundefeng/spring/mapper/PersoninfoMapper.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/muyundefeng/spring/mapper/StudentMapper.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/muyundefeng/spring/service/ArticleService.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/muyundefeng/spring/service/FetchPersonAllInfo.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/muyundefeng/spring/service/impl/ArticleServiceImpl.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/muyundefeng/spring/service/impl/FetchPersonAllInoImpl.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/resources/com/muyundefeng/spring/mapper/ArticleMapper.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/resources/com/muyundefeng/spring/mapper/PersoninfoMapper.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/resources/com/muyundefeng/spring/mapper/StudentMapper.xml" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/com/muyundefeng/spring/controller/TestController.class" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/com/muyundefeng/spring/dao/ArticleDAO.class" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/com/muyundefeng/spring/dao/PersonDAO.class" afterPath="" />
@@ -56,20 +26,8 @@
       <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/com/muyundefeng/spring/service/impl/StudentServiceImpl.class" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/mybatis/gradle.properties" afterPath="" />
       <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/mybatis/jdbc.properties" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/muyundefeng/spring/controller/HomeController.class" afterPath="$PROJECT_DIR$/target/classes/com/muyundefeng/spring/controller/HomeController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/test-classes/DAO/test/StudentDAOTest.class" afterPath="$PROJECT_DIR$/target/test-classes/DAO/test/StudentDAOTest.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Muyundefeng.iml" afterPath="$PROJECT_DIR$/Muyundefeng.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pom.xml" afterPath="$PROJECT_DIR$/pom.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/muyundefeng/spring/controller/HomeController.java" afterPath="$PROJECT_DIR$/src/main/java/com/muyundefeng/spring/controller/HomeController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/generatorConfig.xml" afterPath="$PROJECT_DIR$/src/main/resources/generatorConfig.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/Spring-Mybatis.groovy" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/Spring-Mybatis.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/java/DAO/test/StudentDAOTest.java" afterPath="$PROJECT_DIR$/src/test/java/DAO/test/StudentDAOTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/test/resources/Spring-Mybatis.groovy" afterPath="$PROJECT_DIR$/src/test/resources/Spring-Mybatis.groovy" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/muyundefeng/spring/mapper/ArticleMapper.xml" afterPath="$PROJECT_DIR$/target/classes/com/muyundefeng/spring/mapper/ArticleMapper.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/generatorConfig.xml" afterPath="$PROJECT_DIR$/target/classes/generatorConfig.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/test-classes/Spring-Mybatis.groovy" afterPath="$PROJECT_DIR$/target/test-classes/Spring-Mybatis.groovy" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/博客功能描述.md" afterPath="$PROJECT_DIR$/博客功能描述.md" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -130,8 +88,8 @@
       <file leaf-file-name="BlogServiceImpl.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/muyundefeng/spring/service/impl/BlogServiceImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="449">
-              <caret line="131" column="36" lean-forward="false" selection-start-line="131" selection-start-column="36" selection-end-line="131" selection-end-column="36" />
+            <state relative-caret-position="221">
+              <caret line="119" column="16" lean-forward="false" selection-start-line="119" selection-start-column="16" selection-end-line="119" selection-end-column="16" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -139,12 +97,12 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="README.md" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/README.md">
+      <file leaf-file-name="博客功能描述.md" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/博客功能描述.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="224">
-                <caret line="503" column="11798" lean-forward="false" selection-start-line="503" selection-start-column="11798" selection-end-line="503" selection-end-column="11798" />
+              <first_editor relative-caret-position="95">
+                <caret line="5" column="13" lean-forward="false" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
                 <folding />
               </first_editor>
               <second_editor />
@@ -229,7 +187,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/com/muyundefeng/spring/service/StudentService.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/muyundefeng/spring/service/impl/StudentServiceImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/muyundefeng/spring/mapper/PersoninfoMapper.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/muyundefeng/spring/mapper/StudentMapper.java" />
@@ -280,6 +237,7 @@
         <option value="$PROJECT_DIR$/src/main/java/com/muyundefeng/spring/service/impl/BlogServiceImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/muyundefeng/spring/controller/HomeController.java" />
         <option value="$PROJECT_DIR$/README.md" />
+        <option value="$PROJECT_DIR$/博客功能描述.md" />
       </list>
     </option>
   </component>
@@ -908,7 +866,7 @@
       <workItem from="1488416865721" duration="1841000" />
       <workItem from="1488436543192" duration="1370000" />
       <workItem from="1488443870000" duration="5599000" />
-      <workItem from="1488522071054" duration="6573000" />
+      <workItem from="1488522071054" duration="6842000" />
     </task>
     <servers />
   </component>
@@ -933,7 +891,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="93329000" />
+    <option name="totallyTimeSpent" value="93598000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="24" width="1535" height="876" extended-state="6" />
@@ -1018,7 +976,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/resources/com/muyundefeng/spring/mapper/PersoninfoMapper.xml" />
     <entry file="file://$PROJECT_DIR$/src/main/java/com/muyundefeng/spring/Utils/HashUtils.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="361">
@@ -1260,21 +1217,52 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="186">
+            <caret line="135" column="1" lean-forward="true" selection-start-line="135" selection-start-column="1" selection-end-line="135" selection-end-column="1" />
+            <folding>
+              <marker date="1488533160873" expanded="true" signature="1418:1451" ph="drop table i... " />
+              <marker date="1488533160873" expanded="true" signature="1453:1727" ph="CREATE TABLE... blog_comment" />
+              <marker date="1488533160873" expanded="true" signature="2268:3090" ph="{&quot;msg&quot;: &quot;success&quot;...}" />
+              <marker date="1488533160873" expanded="true" signature="2300:3088" ph="[...]" />
+              <marker date="1488533160873" expanded="true" signature="2306:2398" ph="{&quot;commentNum&quot;: 0...}" />
+              <marker date="1488533160873" expanded="true" signature="2404:2496" ph="{&quot;commentNum&quot;: 0...}" />
+              <marker date="1488533160873" expanded="true" signature="2502:2594" ph="{&quot;commentNum&quot;: 0...}" />
+              <marker date="1488533160873" expanded="true" signature="2600:2692" ph="{&quot;commentNum&quot;: 0...}" />
+              <marker date="1488533160873" expanded="true" signature="2698:2790" ph="{&quot;commentNum&quot;: 0...}" />
+              <marker date="1488533160873" expanded="true" signature="2796:2888" ph="{&quot;commentNum&quot;: 0...}" />
+              <marker date="1488533160873" expanded="true" signature="2894:2986" ph="{&quot;commentNum&quot;: 0...}" />
+              <marker date="1488533160873" expanded="true" signature="2992:3084" ph="{&quot;commentNum&quot;: 0...}" />
+              <marker date="1488533160873" expanded="true" signature="3194:3708" ph="{&quot;blogId&quot;: &quot;5e722dfe2f2671d18de2de9b386bbbb65173457759e136b269a42c5015dd7d43&quot;...}" />
+              <marker date="1488533160873" expanded="true" signature="3854:4522" ph="{&quot;msg&quot;: &quot;success&quot;...}" />
+              <marker date="1488533160873" expanded="true" signature="3903:4505" ph="[...]" />
+              <marker date="1488533160873" expanded="true" signature="3909:4202" ph="{&quot;commnetUser&quot;: &quot;asdada&quot;...}" />
+              <marker date="1488533160873" expanded="true" signature="4208:4501" ph="{&quot;commnetUser&quot;: &quot;asdada&quot;...}" />
+              <marker date="1488533160873" expanded="true" signature="4613:4673" ph="{&quot;blog_id&quot;: &quot;&quot;...}" />
+              <marker date="1488533160873" expanded="true" signature="4698:5212" ph="{&quot;blogId&quot;: &quot;5e722dfe2f2671d18de2de9b386bbbb65173457759e136b269a42c5015dd7d43&quot;...}" />
+            </folding>
+          </first_editor>
+          <second_editor />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/muyundefeng/spring/service/impl/BlogServiceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="449">
-          <caret line="131" column="36" lean-forward="false" selection-start-line="131" selection-start-column="36" selection-end-line="131" selection-end-column="36" />
+        <state relative-caret-position="221">
+          <caret line="119" column="16" lean-forward="false" selection-start-line="119" selection-start-column="16" selection-end-line="119" selection-end-column="16" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
+    <entry file="file://$PROJECT_DIR$/博客功能描述.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="224">
-            <caret line="503" column="11798" lean-forward="false" selection-start-line="503" selection-start-column="11798" selection-end-line="503" selection-end-column="11798" />
+          <first_editor relative-caret-position="95">
+            <caret line="5" column="13" lean-forward="false" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
             <folding />
           </first_editor>
           <second_editor />
