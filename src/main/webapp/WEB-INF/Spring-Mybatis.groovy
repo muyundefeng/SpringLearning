@@ -1,6 +1,7 @@
 import org.apache.commons.dbcp.BasicDataSource
 import org.mybatis.spring.SqlSessionFactoryBean
 import org.mybatis.spring.mapper.MapperScannerConfigurer
+import org.springframework.web.servlet.view.InternalResourceViewResolver
 
 beans{
     xmlns([ctx: 'http://www.springframework.org/schema/context', mvc: 'http://www.springframework.org/schema/mvc'])
@@ -8,6 +9,12 @@ beans{
     ctx.'component-scan'('base-package':'com.muyundefeng.spring.service')
     ctx.'component-scan'('base-package':'com.muyundefeng.spring.dao')
     mvc.'annotation-driven'()
+    mvc.'resources'('mapping': '/public/**', 'location': '/public/')
+
+    internalResourceViewResolver(InternalResourceViewResolver){
+        prefix = "/WEB-INF/views/"
+        suffix = ".jsp"
+    }
 
     basicDataSource(BasicDataSource){
         username = "root"

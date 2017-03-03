@@ -107,6 +107,12 @@
             <version>20160807</version>
         </dependency>
         <!-- https://mvnrepository.com/artifact/net.sf.json-lib/json-lib -->
+        <!-- https://mvnrepository.com/artifact/javax.servlet/jstl -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
+            <version>1.2</version>
+        </dependency>
 
     </dependencies>
     <build>

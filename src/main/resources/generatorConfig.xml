@@ -30,7 +30,18 @@
                              type="XMLMAPPER">
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
-        <table tableName="article">
+        <!--<table tableName="blog_table" domainObjectName="Blog" enableSelectByPrimaryKey="true"-->
+               <!--enableSelectByExample="true"-->
+               <!--enableDeleteByExample = "true"-->
+               <!--enableCountByExample="true"-->
+               <!--enableUpdateByExample="true">-->
+            <!--<property name="useActualColumnNames" value="false"/>-->
+        <!--</table>-->
+        <table tableName="blog_comment" domainObjectName="Comment" enableSelectByPrimaryKey="true"
+               enableSelectByExample="true"
+               enableDeleteByExample = "true"
+               enableCountByExample="true"
+               enableUpdateByExample="true">
             <property name="useActualColumnNames" value="false"/>
         </table>
     </context>

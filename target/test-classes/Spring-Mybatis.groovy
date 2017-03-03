@@ -8,6 +8,7 @@ beans{
     ctx.'component-scan'('base-package':'com.muyundefeng.spring.service')
     ctx.'component-scan'('base-package':'com.muyundefeng.spring.dao')
     mvc.'annotation-driven'()
+    mvc.'resources'('mapping': '/public/**', 'location': '/public/')
 
     basicDataSource(BasicDataSource){
         username = "root"
@@ -25,8 +26,6 @@ beans{
         basePackage = "com.muyundefeng.spring.mapper"
         sqlSessionFactory = sqlSessionFactoryBean
     }
-    //可以使用mapperFactoryBean来扫描相关了类,每一个mapper借口对应于一类sqlSessionFactoryBean
-
 //    mapperFactoryBean(MapperFactoryBean){
 //        mapperInterface = "com.muyundefeng.spring.mapper.StudentMapper"
 //        sqlSessionFactory = sqlSessionFactoryBean
