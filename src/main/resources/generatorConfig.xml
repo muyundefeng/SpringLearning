@@ -10,7 +10,7 @@
         <!--<property name="javaFileEncoding" value="utf-8"/>-->
         <!--</commentGenerator>-->
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://localhost:3306/movieInfo"
+                        connectionURL="jdbc:mysql://localhost:3306/test"
                         userId="root"
                         password="root">
         </jdbcConnection>
@@ -37,12 +37,14 @@
                <!--enableUpdateByExample="true">-->
             <!--<property name="useActualColumnNames" value="false"/>-->
         <!--</table>-->
-        <table tableName="blog_comment" domainObjectName="Comment" enableSelectByPrimaryKey="true"
-               enableSelectByExample="true"
-               enableDeleteByExample = "true"
-               enableCountByExample="true"
-               enableUpdateByExample="true">
-            <property name="useActualColumnNames" value="false"/>
-        </table>
+        <!--<table tableName="blog_comment" domainObjectName="Comment" enableSelectByPrimaryKey="true"-->
+               <!--enableSelectByExample="true"-->
+               <!--enableDeleteByExample = "true"-->
+               <!--enableCountByExample="true"-->
+               <!--enableUpdateByExample="true">-->
+            <!--<property name="useActualColumnNames" value="false"/>-->
+        <!--</table>-->
+        <table tableName="student" domainObjectName="Student"></table>
+        <table tableName="class" domainObjectName="Class"></table>
     </context>
 </generatorConfiguration>

@@ -9,6 +9,16 @@ public class Blog {
      *
      * @mbggenerated Thu Mar 02 14:46:56 CST 2017
      */
+    private Comment comment;
+
+    public Comment getComment() {
+        return comment;
+    }
+
+    public void setComment(Comment comment) {
+        this.comment = comment;
+    }
+
     private String blogId;
 
     /**

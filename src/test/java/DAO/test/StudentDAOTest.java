@@ -1,8 +1,9 @@
 package  DAO.test;
 
-//import com.muyundefeng.spring.dao.StudentDAO;
-//import com.muyundefeng.spring.entity.Student;
-//import org.junit.Test;
+import com.muyundefeng.spring.dao.BlogDAO;
+import com.muyundefeng.spring.entity.Student;
+import com.muyundefeng.spring.mapper.StudentMapper;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -14,14 +15,22 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:Spring-Mybatis.groovy")
 public class StudentDAOTest {
-//    @SuppressWarnings("SpringJavaAutowiringInspection")
-//    @Autowired
-//    StudentDAO studentDAO;
-//    @Test
-//    public void testSelect(){
-//        String id = "1123";
-//        Student student = studentDAO.selectStudentByPrimaryKey(id);
-//        System.out.println(student.getName());
-//    }
+    @SuppressWarnings("SpringJavaAutowiringInspection")
+    @Autowired
+    StudentMapper studentMapper;
 
+    @SuppressWarnings("SpringJavaAutowiringInspection")
+    @Autowired
+    BlogDAO blogDAO;
+
+    @Test
+    public void testSelect(){
+        Student student = studentMapper.selectByPrimaryKey(1234);
+        System.out.println(student.getClass().getName());
+    }
+    @Test
+    public void testBlogDAO(){
+        //Student student = blogDAO.selectAllBlogs();
+        System.out.println(blogDAO.selectAllBlogs());
+    }
 }

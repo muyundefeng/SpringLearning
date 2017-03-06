@@ -12,7 +12,7 @@ beans{
 
     basicDataSource(BasicDataSource){
         username = "root"
-        url = "jdbc:mysql://localhost:3306/movieInfo?characterEncoding=utf-8&autoReconnect=true&autoReconnectForPools=true"
+        url = "jdbc:mysql://localhost:3306/test?characterEncoding=utf-8&autoReconnect=true&autoReconnectForPools=true"
         password = "root"
         driverClassName = "com.mysql.jdbc.Driver"
         maxIdle = "5"
