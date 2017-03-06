@@ -35,6 +35,7 @@ public class BlogServiceImpl implements BlogService {
     public String addBlog(String body) {
         ObjectMapper objectMapper = new ObjectMapper();
         Map<String, Object> map = null;
+        body = body.replaceAll("\\n", "");
         try {
             map = objectMapper.readValue(body, Map.class);
         } catch (IOException e) {
@@ -113,7 +114,7 @@ public class BlogServiceImpl implements BlogService {
         ObjectMapper objectMapper = new ObjectMapper();
         String str = null;
         try {
-            str =  objectMapper.writeValueAsString(blog);
+            str = objectMapper.writeValueAsString(blog);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
