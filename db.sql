@@ -19,3 +19,17 @@ CREATE TABLE `article` (
 `create_time` Date NOT NULL,
 `article_orgina` varchar(255))
 ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+CREATE TABLE student(
+sno INT(15) NOT NULL PRIMARY KEY,
+classId int(15) not null,
+sname VARCHAR(50),
+sex CHAR(2) CHECK(sex IN('男','女')),
+dept VARCHAR(25),
+birth DATE,
+)ENGINE=INNODB DEFAULT CHARSET=utf8;
+
+CREATE TABLE class(
+classId INT(15) NOT NULL PRIMARY KEY,
+className varchar(255) not null
+)ENGINE=INNODB DEFAULT CHARSET=utf8;

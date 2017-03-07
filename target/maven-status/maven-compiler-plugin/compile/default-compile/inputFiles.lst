@@ -7,12 +7,12 @@
 /home/lisheng/workspace/Mybatis-Test/src/main/java/com/muyundefeng/spring/mapper/CommentMapper.java
 /home/lisheng/workspace/Mybatis-Test/src/main/java/com/muyundefeng/spring/dao/impl/CommentDAOImpl.java
 /home/lisheng/workspace/Mybatis-Test/src/main/java/com/muyundefeng/spring/mapper/StudentMapper.java
+/home/lisheng/workspace/Mybatis-Test/src/main/java/com/muyundefeng/spring/entity/Clazz.java
 /home/lisheng/workspace/Mybatis-Test/src/main/java/com/muyundefeng/spring/entity/Comment.java
 /home/lisheng/workspace/Mybatis-Test/src/main/java/com/muyundefeng/spring/service/BlogService.java
 /home/lisheng/workspace/Mybatis-Test/src/main/java/com/muyundefeng/spring/Utils/HashUtils.java
 /home/lisheng/workspace/Mybatis-Test/src/main/java/com/muyundefeng/spring/init1/SpringApplicationInitializer.java
 /home/lisheng/workspace/Mybatis-Test/src/main/java/com/muyundefeng/spring/dao/CommentDAO.java
-/home/lisheng/workspace/Mybatis-Test/src/main/java/com/muyundefeng/spring/entity/Class.java
 /home/lisheng/workspace/Mybatis-Test/src/main/java/com/muyundefeng/spring/controller/HomeController.java
 /home/lisheng/workspace/Mybatis-Test/src/main/java/com/muyundefeng/spring/mapper/BlogMapper.java
 /home/lisheng/workspace/Mybatis-Test/src/main/java/com/muyundefeng/spring/entity/Blog.java
