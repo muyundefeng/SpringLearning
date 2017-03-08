@@ -6,3 +6,4 @@ classes
 *.ipr
 *.iws
 .gradle
+/out/
