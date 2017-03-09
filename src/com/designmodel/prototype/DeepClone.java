@@ -11,7 +11,7 @@ public class DeepClone implements Serializable {
 
     private static final long serialVersionUID = 3969438177161438988L;
 
-    public Person person;
+    public Person person;//person类也必须实现序列化
 
     public Person getPerson() {
         return person;
