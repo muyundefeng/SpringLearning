@@ -1,6 +1,7 @@
 package com.designmodel.test;
 
-import com.designmodel.adapter.DownloaderAdapter;
+
+import com.designmodel.adapter.AudioPlayer;
 
 /**
  * Created by lisheng on 17-3-9.
@@ -8,7 +9,11 @@ import com.designmodel.adapter.DownloaderAdapter;
 public class AdapterTest {
 
     public static void main(String[] args) {
-        DownloaderAdapter downloaderAdapter = new DownloaderAdapter();
-        downloaderAdapter.download("hello","hello");
+        AudioPlayer audioPlayer = new AudioPlayer();
+
+        audioPlayer.play("mp3", "beyond the horizon.mp3");
+        audioPlayer.play("mp4", "alone.mp4");
+        audioPlayer.play("vlc", "far far away.vlc");
+        audioPlayer.play("avi", "mind me.avi");
     }
 }
