@@ -2,6 +2,8 @@ package com.muyundefeng.test;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -76,6 +78,8 @@ public class TestTrinity {
 			e.printStackTrace();
 		}
 		Node node = new Node();
+		String string = texts.get(1).getText();
+		
 		node.setTexts(texts);
 		CreateTrinity trinity = new CreateTrinity();
 		trinity.createTrinity(node);
@@ -83,5 +87,14 @@ public class TestTrinity {
 		LearnTemplate learnTemplate = new LearnTemplate();
 		String result = learnTemplate.learnTemplate(node, "");
 		logger.info("result="+result);
+		System.out.println(result);
+		System.out.println("string="+string);
+		Pattern pat = Pattern.compile("<html><head>	<title>results</title></head><body>	<h1>Result:</h1>.*<br/><b>");
+		Matcher mat = pat.matcher(string);
+		//boolean rs = mat.find();
+		while(mat.find()){
+		 System.out.println(mat.group());
+		}
+		
 	}
 }

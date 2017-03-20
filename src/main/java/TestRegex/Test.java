@@ -141,13 +141,26 @@ public class Test {
 		int count = 0;
 //		String  string = "adacc";
 //		System.out.println(string.substring(1, 3));
-		String str ="PHP<br/><b>Gilmore</b><br/>$34.99<br/><br/>	PHP Solutions<br/><b>Powers</b><br/>$26.99<br/></body></html> g";
-		Pattern pattern2 = Pattern.compile("<br/><b>");
-		Matcher m = pattern2.matcher(str);  
-		while(m.find()){
-			count ++;
+//		String str ="PHP<br/><b>Gilmore</b><br/>$34.99<br/><br/>	PHP Solutions<br/><b>Powers</b><br/>$26.99<br/></body></html> g";
+//		Pattern pattern2 = Pattern.compile("<br/><b>");
+//		Matcher m = pattern2.matcher(str);  
+//		while(m.find()){
+//			count ++;
+//		}
+//		System.out.println(count);
+		
+		   // 要验证的字符串
+		String regEx = "<a>([\\s\\S]*?)</a>";
+		String s = "<a>123</a><a>456</a><a>789</a>";
+		Pattern pat = Pattern.compile(regEx);
+		Matcher mat = pat.matcher(s);
+		//boolean rs = mat.find();
+		while(mat.find()){
+		 System.out.println(mat.group());
 		}
-		System.out.println(count);
+	    //System.out.println(rs);
+		
+		
 		//System.out.println(StringUtils.substringBetween(str,"</b>", "</b><br/>"));
 //		System.out.println(strExitAndAfterPattern(new Text(str), "</b><br/>$35.99<br/><br/>", "<b>"));
 //		System.out.println(strExitAndBeforePattern(new Text(str), "</b><br/>$35.99<br/><br/>", "<b>"));
