@@ -17,7 +17,7 @@ public class MaxTemperatureWithCombiner {
     @SuppressWarnings("Duplicates")
     public static void main(String[] args) throws IOException {
         String input="/home/lisheng/work/workspace/javaspace/HadoopSpace/数据样本/权威指南/气象数据/1902";
-        String output = "/home/lisheng/work/workspace/javaspace/HadoopSpace/数据样本/权威指南/处理以后的数据/气象数据/ouput2";
+        String output = "/home/lisheng/work/workspace/javaspace/HadoopSpace/数据样本/权威指南/处理以后的数据/气象数据/ouput4";
 
         //创建一个jobTracker
         JobConf conf = new JobConf();

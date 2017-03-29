@@ -5,15 +5,13 @@ import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapred.*;
 
-
-
 /**
  * Created by lisheng on 17-3-28.
  */
 public class MaxTemperature {
     public static void main(String[] args) throws Exception {
         String input="/home/lisheng/work/workspace/javaspace/HadoopSpace/数据样本/权威指南/气象数据/1902";
-        String output = "/home/lisheng/work/workspace/javaspace/HadoopSpace/数据样本/权威指南/处理以后的数据/气象数据/ouput1";
+        String output = "/home/lisheng/work/workspace/javaspace/HadoopSpace/数据样本/权威指南/处理以后的数据/气象数据/ouput7";
 
         //创建一个jobTracker
         JobConf conf = new JobConf();

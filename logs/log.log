@@ -1,0 +1,55 @@
+2017-03-29 21:34:36  [ main:0 ] - [ DEBUG ]  field org.apache.hadoop.metrics2.lib.MutableRate org.apache.hadoop.security.UserGroupInformation$UgiMetrics.loginSuccess with annotation @org.apache.hadoop.metrics2.annotation.Metric(about=, sampleName=Ops, always=false, type=DEFAULT, valueName=Time, value=[Rate of successful kerberos logins and latency (milliseconds)])
+2017-03-29 21:34:36  [ main:9 ] - [ DEBUG ]  field org.apache.hadoop.metrics2.lib.MutableRate org.apache.hadoop.security.UserGroupInformation$UgiMetrics.loginFailure with annotation @org.apache.hadoop.metrics2.annotation.Metric(about=, sampleName=Ops, always=false, type=DEFAULT, valueName=Time, value=[Rate of failed kerberos logins and latency (milliseconds)])
+2017-03-29 21:34:36  [ main:10 ] - [ DEBUG ]  field org.apache.hadoop.metrics2.lib.MutableRate org.apache.hadoop.security.UserGroupInformation$UgiMetrics.getGroups with annotation @org.apache.hadoop.metrics2.annotation.Metric(about=, sampleName=Ops, always=false, type=DEFAULT, valueName=Time, value=[GetGroups])
+2017-03-29 21:34:36  [ main:11 ] - [ DEBUG ]  UgiMetrics, User and group related metrics
+2017-03-29 21:34:36  [ main:98 ] - [ DEBUG ]  Kerberos krb5 configuration not found, setting default realm to empty
+2017-03-29 21:34:36  [ main:100 ] - [ DEBUG ]   Creating new Groups object
+2017-03-29 21:34:36  [ main:103 ] - [ DEBUG ]  Trying to load the custom-built native-hadoop library...
+2017-03-29 21:34:36  [ main:104 ] - [ DEBUG ]  Failed to load native-hadoop with error: java.lang.UnsatisfiedLinkError: no hadoop in java.library.path
+2017-03-29 21:34:36  [ main:104 ] - [ DEBUG ]  java.library.path=/home/lisheng/work/software/idea-IU-171.3780.107/bin::/usr/java/packages/lib/amd64:/usr/lib64:/lib64:/lib:/usr/lib
+2017-03-29 21:34:36  [ main:105 ] - [ WARN ]  Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+2017-03-29 21:34:36  [ main:105 ] - [ DEBUG ]  Falling back to shell based
+2017-03-29 21:34:36  [ main:106 ] - [ DEBUG ]  Group mapping impl=org.apache.hadoop.security.ShellBasedUnixGroupsMapping
+2017-03-29 21:34:36  [ main:116 ] - [ DEBUG ]  Failed to detect a valid hadoop home directory
+java.io.IOException: HADOOP_HOME or hadoop.home.dir are not set.
+	at org.apache.hadoop.util.Shell.checkHadoopHome(Shell.java:302)
+	at org.apache.hadoop.util.Shell.<clinit>(Shell.java:327)
+	at org.apache.hadoop.util.StringUtils.<clinit>(StringUtils.java:79)
+	at org.apache.hadoop.security.Groups.parseStaticMapping(Groups.java:104)
+	at org.apache.hadoop.security.Groups.<init>(Groups.java:86)
+	at org.apache.hadoop.security.Groups.<init>(Groups.java:66)
+	at org.apache.hadoop.security.Groups.getUserToGroupsMappingService(Groups.java:280)
+	at org.apache.hadoop.security.UserGroupInformation.initialize(UserGroupInformation.java:271)
+	at org.apache.hadoop.security.UserGroupInformation.ensureInitialized(UserGroupInformation.java:248)
+	at org.apache.hadoop.security.UserGroupInformation.loginUserFromSubject(UserGroupInformation.java:763)
+	at org.apache.hadoop.security.UserGroupInformation.getLoginUser(UserGroupInformation.java:748)
+	at org.apache.hadoop.security.UserGroupInformation.getCurrentUser(UserGroupInformation.java:621)
+	at org.apache.hadoop.fs.FileSystem$Cache$Key.<init>(FileSystem.java:2753)
+	at org.apache.hadoop.fs.FileSystem$Cache$Key.<init>(FileSystem.java:2745)
+	at org.apache.hadoop.fs.FileSystem$Cache.get(FileSystem.java:2611)
+	at org.apache.hadoop.fs.FileSystem.get(FileSystem.java:370)
+	at org.apache.hadoop.fs.FileSystem.get(FileSystem.java:169)
+	at org.apache.hadoop.mapred.JobConf.getWorkingDirectory(JobConf.java:656)
+	at org.apache.hadoop.mapred.FileInputFormat.addInputPath(FileInputFormat.java:455)
+	at maxTemperature.MaxTemperature.main(MaxTemperature.java:21)
+2017-03-29 21:34:36  [ main:204 ] - [ DEBUG ]  setsid exited with exit code 0
+2017-03-29 21:34:36  [ main:205 ] - [ DEBUG ]  Group mapping impl=org.apache.hadoop.security.JniBasedUnixGroupsMappingWithFallback; cacheTimeout=300000; warningDeltaMs=5000
+2017-03-29 21:34:36  [ main:209 ] - [ DEBUG ]  hadoop login
+2017-03-29 21:34:36  [ main:211 ] - [ DEBUG ]  hadoop login commit
+2017-03-29 21:34:36  [ main:216 ] - [ DEBUG ]  using local user:UnixPrincipal: lisheng
+2017-03-29 21:34:36  [ main:216 ] - [ DEBUG ]  Using user: "UnixPrincipal: lisheng" with name lisheng
+2017-03-29 21:34:36  [ main:217 ] - [ DEBUG ]  User entry: "lisheng"
+2017-03-29 21:34:36  [ main:218 ] - [ DEBUG ]  UGI loginUser:lisheng (auth:SIMPLE)
+2017-03-29 21:34:36  [ main:354 ] - [ DEBUG ]  Trying ClientProtocolProvider : org.apache.hadoop.mapred.LocalClientProtocolProvider
+2017-03-29 21:34:36  [ main:361 ] - [ INFO ]  session.id is deprecated. Instead, use dfs.metrics.session-id
+2017-03-29 21:34:36  [ main:362 ] - [ INFO ]  Initializing JVM Metrics with processName=JobTracker, sessionId=
+2017-03-29 21:34:36  [ main:369 ] - [ DEBUG ]  Picked org.apache.hadoop.mapred.LocalClientProtocolProvider as the ClientProtocolProvider
+2017-03-29 21:34:36  [ main:370 ] - [ DEBUG ]  PrivilegedAction as:lisheng (auth:SIMPLE) from:org.apache.hadoop.mapred.JobClient.submitJobInternal(JobClient.java:557)
+2017-03-29 21:34:36  [ main:379 ] - [ DEBUG ]  PrivilegedAction as:lisheng (auth:SIMPLE) from:org.apache.hadoop.mapreduce.Job.connect(Job.java:1261)
+2017-03-29 21:34:36  [ main:381 ] - [ DEBUG ]  Trying ClientProtocolProvider : org.apache.hadoop.mapred.LocalClientProtocolProvider
+2017-03-29 21:34:36  [ main:391 ] - [ INFO ]  Cannot initialize JVM Metrics with processName=JobTracker, sessionId= - already initialized
+2017-03-29 21:34:36  [ main:392 ] - [ DEBUG ]  Picked org.apache.hadoop.mapred.LocalClientProtocolProvider as the ClientProtocolProvider
+2017-03-29 21:34:36  [ main:393 ] - [ DEBUG ]  PrivilegedAction as:lisheng (auth:SIMPLE) from:org.apache.hadoop.mapreduce.Cluster.getFileSystem(Cluster.java:161)
+2017-03-29 21:34:36  [ main:400 ] - [ DEBUG ]  PrivilegedAction as:lisheng (auth:SIMPLE) from:org.apache.hadoop.mapreduce.Job.submit(Job.java:1293)
+2017-03-29 21:34:36  [ main:409 ] - [ DEBUG ]  PrivilegedActionException as:lisheng (auth:SIMPLE) cause:org.apache.hadoop.mapred.FileAlreadyExistsException: Output directory file:/home/lisheng/work/workspace/javaspace/HadoopSpace/数据样本/权威指南/处理以后的数据/气象数据/ouput6 already exists
+2017-03-29 21:34:36  [ main:409 ] - [ DEBUG ]  PrivilegedActionException as:lisheng (auth:SIMPLE) cause:org.apache.hadoop.mapred.FileAlreadyExistsException: Output directory file:/home/lisheng/work/workspace/javaspace/HadoopSpace/数据样本/权威指南/处理以后的数据/气象数据/ouput6 already exists
