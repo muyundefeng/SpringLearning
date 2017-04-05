@@ -18,7 +18,7 @@ import java.net.URL;
  */
 public class ReadFileByUri {
     static {
-        //配置URL可以识别hadoop hdfs的地址，但是只能调用一次该方法，如果其他组件已经声明URLStreamHandlerFactory，那么该程序将无法访问hdfs文件系统
+        //配置URL可以识别hadoop hdfs的地址，但是只能调用 一次该方法，如果其他组件已经声明URLStreamHandlerFactory，那么该程序将无法访问hdfs文件系统
         //中的数据。
         URL.setURLStreamHandlerFactory(new FsUrlStreamHandlerFactory());
     }

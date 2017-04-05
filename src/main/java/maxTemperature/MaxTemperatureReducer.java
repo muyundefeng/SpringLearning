@@ -2,10 +2,7 @@ package maxTemperature;
 
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
-import org.apache.hadoop.mapred.JobConf;
-import org.apache.hadoop.mapred.OutputCollector;
-import org.apache.hadoop.mapred.Reducer;
-import org.apache.hadoop.mapred.Reporter;
+import org.apache.hadoop.mapred.*;
 
 import java.io.IOException;
 import java.util.Iterator;
@@ -15,8 +12,11 @@ import java.util.Iterator;
  * Created by lisheng on 17-3-28.
  */
 public class MaxTemperatureReducer implements Reducer<Text,IntWritable,Text,IntWritable> {
+
+//    private MultipleOutputs<NullWritable,Text> multipleOutputs;
+
     public void reduce(Text key, Iterator<IntWritable> values, OutputCollector<Text, IntWritable> outputCollector, Reporter reporter) throws IOException {
-        int max =Integer.MAX_VALUE;
+        int max =Integer.MIN_VALUE;
         while(values.hasNext()){
             max = Math.max(values.next().get(),max);
         }
@@ -28,7 +28,6 @@ public class MaxTemperatureReducer implements Reducer<Text,IntWritable,Text,IntW
     }
 
     public void configure(JobConf jobConf) {
-
     }
 //    @Override
 //    protected void reduce(Text key, Iterable<IntWritable> values, Context context) throws IOException, InterruptedException {
